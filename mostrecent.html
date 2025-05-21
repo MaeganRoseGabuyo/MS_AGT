@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+    }
+    header {
+      color: white;
+      padding: 0;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+      height: 100px; /* Reduced height */
+    }
+    .header-bg-img {
+      width: 100%;
+      height: 110%;
+      object-fit: cover;
+      position: absolute;
+      top: -60px; /* Move image upward */
+      left: 0;
+      z-index: 1;
+    }
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; /* Cover the entire header */
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+    .menu-icon,
+    .upload-icon {
+      color: white;
+      font-size: 1.2rem;
+      text-decoration: none;
+      margin-right: 1rem; /* Reduced gap */
+      margin-top: -140px;
+    }
+    /* Remove margin from last icon */
+    nav a:last-child {
+      margin-right: 40px;
+    }
+    .menu-icon:hover {
+      color: #60a5fa;
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .header-title h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+    nav {
+      display: flex;
+      position: absolute;
+      top: 1.2rem;
+      right: 2rem;
+      z-index: 3;
+      position: relative; /* Ensure dropdown is positioned relative to nav */
+    }
+    nav a {
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #60a5fa;
+    }
+    .container {
+      padding: 2rem;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: white;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 cards in one line */
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+        height: 270px;
+    }
+    .card h3 {
+      margin: 0.5rem 0 0.2rem 0;
+    }
+    .card p {
+      margin: 0 0 0.5rem 0;
+      color: #444;
+      font-size: 0.95rem;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 0.1rem;
+      background-color: #1e3a8a;
+      color: white;
+      padding: 0.3rem 9rem;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .podcast-cover {
+      width: 70%;
+      height: 60%;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    /* Dropdown Menu Styles */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: -110px;
+      right: 15px;
+      left: auto;
+      background: rgb(101, 96, 96);
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      min-width: 170px;
+      z-index: 10;
+      flex-direction: column;
+      padding: 0.5rem 0;
+      overflow: visible;
+    }
+    .dropdown-menu a {
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .dropdown-menu a:hover {
+      background: #454a50;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/header.png" alt="Header Image" class="header-bg-img" />
+    <div class="header-overlay">
+      <div class="header-title">
+        <!-- Optional: Add a title here -->
+      </div>
+      <!-- Icons on the right -->
+      <nav>
+  <a href="#" class="menu-icon" title="Menu" id="menuBtn"><i class="fas fa-bars"></i></a>
+  <div class="dropdown-menu" id="dropdownMenu">
+     <a href="dashboard.html">Home</a>
+    <a href="category.html">Category</a>
+    <a href="discover.html">Discover</a>
+    <a href="top10.html">Top 10 Podcasts</a>
+   
+  </div>
+  <a href="upload.html" class="upload-icon" title="Upload"><i class="fas fa-upload"></i></a>
+
+  <a href="#" class="upload-icon" title="Profile" id="profileBtn"><i class="fas fa-user"></i></a>
+  <div class="dropdown-menu" id="profileDropdown" style="right:10; left:auto; top:-100px;">
+    <a href="profile.html">Profile</a>
+    <a href="settings.html">Settings</a>
+    <a href="index.html">Logout</a>
+  </div>
+</nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Recently Uploaded</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="pod1.jpg" alt="Podcast Talk Show with Juan Luna" class="podcast-cover" />
+        <hr>
+        <h3>Podcast Talk Show with Juan Luna</h3>
+        <p>April 5, 2023 • 21.9k listens</p>
+        <a href="episode.html">View</a>
+      </div>
+      <div class="card">
+        <img src="pod2.jpg" alt="Positive Lifestyle" class="podcast-cover" />
+        <hr>
+        <h3>Positive Lifestyle</h3>
+        <p>April 5, 2023 • 10k listens</p>
+        <a href="episode.html">View</a>
+      </div>
+      <div class="card">
+        <img src="pod3.jpg" alt="Live Podcast" class="podcast-cover" />
+        <hr>
+        <h3>Live Podcast</h3>
+        <p>April 5, 2023 • 55k listens</p>
+        <a href="episode.html">View</a>
+      </div>
+      <div class="card">
+        <img src="pod4.png" alt="Morning Motivation" class="podcast-cover" />
+        <hr>
+        <h3>Morning Motivation</h3>
+        <p>April 5, 2023 • 8k listens</p>
+        <a href="episode.html">View</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+    // JavaScript to toggle the main menu dropdown
+    document.getElementById('menuBtn').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+      document.getElementById('profileDropdown').style.display = 'none';
+    });
+
+    // JavaScript to toggle the profile dropdown
+    document.getElementById('profileBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var profileDropdown = document.getElementById('profileDropdown');
+      profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+      document.getElementById('dropdownMenu').style.display = 'none';
+    });
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.addEventListener('click', function(event) {
+      var dropdown = document.getElementById('dropdownMenu');
+      if (!event.target.matches('.menu-icon') && !event.target.matches('.menu-icon *')) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

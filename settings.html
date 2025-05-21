@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings - Anything Goes Tambayan</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    .header {
+      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
+      padding: 24px 0 12px 0;
+      text-align: left;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+    }
+    .header-title {
+      font-size: 2.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-left: 48px;
+      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+    }
+    .header-title .goes { color: #3ec6ff; }
+    .header-title .tambayan { color: #ff2d2d; }
+    .header-desc {
+      font-size: 1.08rem;
+      margin-left: 52px;
+      margin-top: 7px;
+      color: #fff;
+      opacity: 0.92;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px #222;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 90px);
+    }
+    .sidebar {
+      background: linear-gradient(180deg, #7a6f2c 80%, #ffe85c 100%);
+      width: 320px;
+      padding: 48px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-shadow: 2px 0 16px 0 rgba(0,0,0,0.12);
+    }
+    .sidebar h2 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-left: 44px;
+      margin-bottom: 44px;
+      color: #191600;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 0 #fff3;
+    }
+    .nav {
+      width: 100%;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 18px 0 18px 44px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-left 0.18s;
+      border-left: 8px solid transparent;
+      margin-bottom: 7px;
+
+      position: relative;
+    }
+    .nav-item.selected {
+      background: linear-gradient(90deg, #ffe85c 80%, #fff2 100%);
+      color: #191600;
+      border-left: 8px solid #ffe85c;
+      font-weight: 700;
+      z-index: 2;
+      box-shadow: 2px 4px 16px 0 rgba(255,232,92,0.08);
+    }
+    .nav-item i {
+      margin-right: 18px;
+      font-size: 1.5rem;
+      opacity: 0.92;
+      transition: color 0.18s;
+    }
+    .nav-item.selected i {
+      color: #191600;
+    }
+    .nav-item:hover:not(.selected) {
+      background: #fff2;
+      color: #ffe85c;
+    }
+    .nav-item:hover:not(.selected) i {
+      color: #ffe85c;
+    }
+    .main-content {
+      flex: 1;
+      background: #000;
+      padding: 60px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .account-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffe85c;
+      margin-bottom: 36px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 12px #222;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .account-title i {
+      color: #ffe85c;
+      font-size: 2.2rem;
+      opacity: 0.92;
+    }
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      margin-bottom: 34px;
+      justify-content: center;
+      background: linear-gradient(90deg, #ffe85c22 0%, #e7a6e722 100%);
+      border-radius: 18px;
+      padding: 32px 48px 32px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    }
+    .profile-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 60% 40%, #ffe85c 60%, #e7a6e7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0;
+      overflow: hidden;
+      border: 4px solid #ffe85c;
+      box-shadow: 0 2px 16px #ffe85c33;
+    }
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .account-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2px;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px #222;
+    }
+    .account-email {
+      font-size: 1.13rem;
+      color: #ffe85c;
+      opacity: 0.92;
+      font-style: italic;
+      margin-bottom: 0;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px #222;
+    }
+    .account-actions {
+      display: flex;
+      gap: 22px;
+      margin-bottom: 36px;
+      justify-content: center;
+    }
+    .account-actions button {
+      background: linear-gradient(90deg, #ffe85c 60%, #fff2 100%);
+      color: #191600;
+      border: none;
+      border-radius: 8px;
+      padding: 18px 95px;
+      font-size: 1.13rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+      margin-top: -5px;
+      box-shadow: 0 2px 12px #ffe85c33;
+      letter-spacing: 0.5px;
+    }
+    .account-actions button:hover {
+      background: #dcb01d;
+      color: #fff;
+      box-shadow: 0 4px 18px #3ec6ff44;
+    }
+    .back-btn {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      background: linear-gradient(90deg, #ff5858 0%, #ff2d2d 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 48px 14px 32px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      box-shadow: 0 4px 18px #ff2d2d44, 0 2px 10px #ff2d2d22;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      outline: none;
+    }
+    .back-btn i {
+      font-size: 1.3rem;
+      margin-right: 8px;
+      transition: transform 0.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(90deg, #ff7b7b 0%, #c1272d 100%);
+      box-shadow: 0 6px 24px #c1272d66;
+      transform: translateY(-2px) scale(1.04);
+    }
+    .back-btn:active {
+      transform: scale(0.98);
+    }
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 24px 0 0 0;
+        min-height: unset;
+      }
+      .sidebar h2 {
+        margin-left: 24px;
+        margin-bottom: 0;
+        font-size: 1.5rem;
+      }
+      .nav {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        margin-left: 24px;
+      }
+      .nav-item, .nav-item.selected {
+        border-radius: 16px;
+        padding: 12px 18px;
+        margin-bottom: 0;
+        font-size: 1rem;
+      }
+      .main-content {
+        padding: 30px 0 0 0;
+      }
+      .profile-row {
+        flex-direction: column;
+        gap: 18px;
+        padding: 24px 18px;
+      }
+      .back-btn {
+        right: 20px;
+        bottom: 20px;
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">
+      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+    </div>
+    <div class="header-desc">
+      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
+    </div>
+  </div>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Settings</h2>
+      <div class="nav">
+        <div class="nav-item selected"><i class="fa fa-user"></i> Account</div>
+        <div class="nav-item"><i class="fa fa-gear"></i> General Settings</div>
+        <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
+        <div class="nav-item"><i class="fa fa-envelope"></i> Contact Us</div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="account-title"><i class="fa fa-user"></i> Account</div>
+      <div class="profile-row">
+        <div class="profile-img">
+          <img src="img/avatar.jpg" alt="Profile" />
+        </div>
+        <div class="profile-info">
+          <div class="account-name">MAEGAN ROSE SANTIAGO</div>
+          <div class="account-email">maegansantiago@gmail.com</div>
+        </div>
+      </div>
+      <div class="account-actions">
+        <button onclick="window.location.href='changeemail.html'"><i class="fa fa-envelope"></i> Change Email</button>
+         <button onclick="window.location.href='changepassowrd.html'"><i class="fa fa-key"></i> Change Password</button>
+      </div>
+      <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back</button>
+    </div>
+  </div>
+</body>
+</html>

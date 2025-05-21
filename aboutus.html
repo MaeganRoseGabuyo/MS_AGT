@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings - Anything Goes Tambayan</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden; /* Prevent scrolling */
+    }
+    .header {
+      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
+      padding: 24px 0 12px 0;
+      text-align: left;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+    }
+    .header-title {
+      font-size: 2.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-left: 48px;
+      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+    }
+    .header-title .goes { color: #3ec6ff; }
+    .header-title .tambayan { color: #ff2d2d; }
+    .header-desc {
+      font-size: 1.08rem;
+      margin-left: 52px;
+      margin-top: 7px;
+      color: #fff;
+      opacity: 0.92;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px #222;
+    
+    }
+    .about-section {
+      max-width: 950px;
+      margin: 36px auto 0 auto;
+      padding: 32px 24px 48px 24px;
+      background: #000;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    }
+    .about-section h2 {
+      color: #fff;
+      font-size: 2rem;
+      margin-bottom: 28px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .about-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 48px;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .about-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .about-img {
+      flex: 1 1 260px;
+      min-width: 240px;
+      max-width: 340px;
+      display: flex;
+      justify-content: center;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #2228;
+      object-fit: cover;
+    }
+    .about-text {
+      flex: 2 1 340px;
+      min-width: 260px;
+      color: #fff;
+      padding: 0 12px;
+    }
+    .about-text h3 {
+      color: #ffe85c;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .about-text .highlight {
+      color: #3ec6ff;
+      font-weight: 800;
+    }
+    .about-text p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: #fff;
+      opacity: 0.95;
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .about-row, .about-row.reverse {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .about-img, .about-text {
+        min-width: 0;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">
+      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+    </div>
+    <div class="header-desc">
+      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
+    </div>
+  </div>
+
+  <div class="about-section">
+  <h2>About Us</h2>
+  <div class="about-row">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Podcast Studio">
+    </div>
+    <div class="about-text">
+      <h3>Welcome to <span class="highlight">Anything Goes Tambayan</span> – your ultimate virtual tambayan!</h3>
+      <p>
+        We’re not just a podcast – we’re your barkada in the digital world. Whether you’re chilling after a long day, looking for good vibes, or just want someone to talk to (or listen to), you’re in the right place.
+      </p>
+    </div>
+  </div>
+  <div class="about-row reverse">
+    <div class="about-text">
+      <h3>Our Goal?</h3>
+      <p>
+        To keep things real, relatable, and ridiculously fun. We created this space for laughs, meaningful conversations, and good company. It’s an open mic for everyone!
+      </p>
+    </div>
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Podcast Goal">
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
