@@ -11,6 +11,8 @@
       font-family: 'Montserrat', Arial, sans-serif;
       background: #000;
       color: #fff;
+      height: 100vh;
+      overflow: hidden; /* Prevent scrolling */
     }
     .header {
       background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
@@ -35,10 +37,74 @@
       opacity: 0.92;
       letter-spacing: 0.5px;
       text-shadow: 0 1px 6px #222;
+    
     }
-    .container {
+    .about-section {
+      max-width: 950px;
+      margin: 36px auto 0 auto;
+      padding: 32px 24px 48px 24px;
+      background: #000;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    }
+    .about-section h2 {
+      color: #fff;
+      font-size: 2rem;
+      margin-bottom: 28px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .about-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 48px;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .about-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .about-img {
+      flex: 1 1 260px;
+      min-width: 240px;
+      max-width: 340px;
+      display: flex;
+      justify-content: center;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #2228;
+      object-fit: cover;
+    }
+    .about-text {
+      flex: 2 1 340px;
+      min-width: 260px;
+      color: #fff;
+      padding: 0 12px;
+    }
+    .about-text h3 {
+      color: #ffe85c;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .about-text .highlight {
+      color: #3ec6ff;
+      font-weight: 800;
+    }
+    .about-text p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: #fff;
+      opacity: 0.95;
+      margin: 0;
+    }
+       .container {
       display: flex;
       height: calc(100vh - 90px);
+      overflow: hidden; /* Prevent double scrollbars */
     }
     .sidebar {
       background: linear-gradient(180deg, #7a6f2c 80%, #ffe85c 100%);
@@ -107,6 +173,8 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      overflow-y: auto;      /* Enable vertical scrolling */
+      height: 100%;          /* Take full height of container */
     }
     .account-title {
       font-size: 2.6rem;
@@ -124,120 +192,104 @@
       font-size: 2.2rem;
       opacity: 0.92;
     }
-    .profile-row {
-      display: flex;
-      align-items: center;
-      gap: 44px;
-      margin-bottom: 34px;
-      justify-content: center;
-      background: linear-gradient(90deg, #ffe85c22 0%, #e7a6e722 100%);
-      border-radius: 18px;
-      padding: 32px 48px 32px 32px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-    }
-    .profile-img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 60% 40%, #ffe85c 60%, #e7a6e7 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0;
-      overflow: hidden;
-      border: 4px solid #ffe85c;
-      box-shadow: 0 2px 16px #ffe85c33;
-    }
-    .profile-img img {
+    .contact-section {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
+      max-width: 950px;
+      margin: 36px auto 0 auto;
+      padding: 32px 24px 48px 24px;
+      background: #000;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
     }
-    .profile-info {
+    .contact-row {
       display: flex;
-      flex-direction: column;
+      gap: 48px;
       align-items: flex-start;
-      gap: 6px;
+      flex-wrap: wrap;
     }
-    .account-name {
+    .contact-info {
+      flex: 1 1 260px;
+      min-width: 260px;
+      max-width: 340px;
+      color: #fff;
+    }
+    .contact-info h2 {
       font-size: 2rem;
       font-weight: 800;
-      color: #fff;
-      margin-bottom: 2px;
+      margin-bottom: 12px;
       letter-spacing: 1px;
-      text-shadow: 0 1px 8px #222;
     }
-    .account-email {
-      font-size: 1.13rem;
+    .contact-info p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin: 0 0 8px 0;
+    }
+    .contact-info i {
+      margin-right: 10px;
       color: #ffe85c;
-      opacity: 0.92;
-      font-style: italic;
-      margin-bottom: 0;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
+      font-size: 1.1rem;
+      width: 22px;
+      display: inline-block;
+      text-align: center;
     }
-    .account-actions {
+    .contact-form {
+      flex: 2 1 340px;
+      min-width: 260px;
       display: flex;
-      gap: 22px;
-      margin-bottom: 36px;
-      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
     }
-    .account-actions button {
-      background: linear-gradient(90deg, #ffe85c 60%, #fff2 100%);
-      color: #191600;
+    .contact-form label {
+      color: #ffe85c;
+      font-size: 1.08rem;
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: #eaeaea;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+      outline: none;
+      resize: none;
+      color: #222;
+      font-family: inherit;
+      box-shadow: 0 2px 8px #2222;
+      transition: border 0.2s;
+    }
+    .contact-form textarea {
+      border: 2px solid #8e5cff;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border: 2px solid #3ec6ff;
+    }
+    .contact-form button {
+      background: linear-gradient(90deg, #5ee7df 0%, #2196f3 100%);
+      color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 18px 95px;
+      padding: 12px 0;
       font-size: 1.13rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-      margin-top: -5px;
-      box-shadow: 0 2px 12px #ffe85c33;
+      margin-top: 8px;
+      box-shadow: 0 2px 12px #2196f344;
       letter-spacing: 0.5px;
+      transition: background 0.18s, box-shadow 0.18s;
     }
-    .account-actions button:hover {
-      background: #dcb01d;
-      color: #fff;
+    .contact-form button:hover {
+      background: linear-gradient(90deg, #2196f3 0%, #5ee7df 100%);
       box-shadow: 0 4px 18px #3ec6ff44;
-    }
-    .back-btn {
-      position: absolute;
-      bottom: 40px;
-      right: 60px;
-      background: linear-gradient(90deg, #ff5858 0%, #ff2d2d 100%);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 48px 14px 32px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-      box-shadow: 0 4px 18px #ff2d2d44, 0 2px 10px #ff2d2d22;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      outline: none;
-    }
-    .back-btn i {
-      font-size: 1.3rem;
-      margin-right: 8px;
-      transition: transform 0.2s;
-    }
-    .back-btn:hover {
-      background: linear-gradient(90deg, #ff7b7b 0%, #c1272d 100%);
-      box-shadow: 0 6px 24px #c1272d66;
-      transform: translateY(-2px) scale(1.04);
-    }
-    .back-btn:active {
-      transform: scale(0.98);
     }
     @media (max-width: 900px) {
       .container {
         flex-direction: column;
+        height: auto;
+        overflow: visible;
       }
       .sidebar {
         width: 100%;
@@ -265,6 +317,8 @@
       }
       .main-content {
         padding: 30px 0 0 0;
+        height: auto;
+        overflow: visible;
       }
       .profile-row {
         flex-direction: column;
@@ -276,6 +330,13 @@
         bottom: 20px;
         padding: 12px 24px;
         font-size: 1rem;
+      }
+      .contact-row {
+        flex-direction: column;
+        gap: 24px;
+      }
+      .contact-section {
+        padding: 18px 8px 28px 8px;
       }
     }
   </style>
@@ -293,29 +354,38 @@
     <div class="sidebar">
       <h2>Settings</h2>
       <div class="nav">
-        <div class="nav-item selected"><i class="fa fa-user"></i> Account</div>
-       
+        <div class="nav-item" onclick="window.location.href='settings.html'"><i class="fa fa-user"></i> Account</div>
+ 
         <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
-        <div class="nav-item" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
+        <div class="nav-item selected" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
       </div>
     </div>
     <div class="main-content">
-      <div class="account-title"><i class="fa fa-user"></i> Account</div>
-      <div class="profile-row">
-        <div class="profile-img">
-          <img src="img/avatar.jpg" alt="Profile" />
-        </div>
-        <div class="profile-info">
-          <div class="account-name">MAEGAN ROSE SANTIAGO</div>
-          <div class="account-email">maegansantiago@gmail.com</div>
-        </div>
-      </div>
-      <div class="account-actions">
-        <button onclick="window.location.href='changeemail.html'"><i class="fa fa-envelope"></i> Change Email</button>
-         <button onclick="window.location.href='changepassowrd.html'"><i class="fa fa-key"></i> Change Password</button>
-      </div>
-      <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back</button>
+      <div class="account-title"><i class="fa fa-envelope"></i> Contact Us</div>
+
+
+<div class="contact-section">
+  <div class="contact-row">
+    <div class="contact-info">
+      <h2>Contact Us</h2>
+      <p>You may contact us on:</p>
+      <p>
+        <i class="fa fa-globe"></i> agt@gmail.com<br>
+        <i class="fa fa-phone"></i> 23772 9229 9292<br>
+        <i class="fa fa-envelope"></i> 09999999999
+      </p>
+      <p style="font-style: italic; margin-top: 18px;">
+        or fill up the form to send concern
+      </p>
     </div>
+    <form class="contact-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <label for="concern">Concern</label>
+      <textarea id="concern" name="concern" rows="5" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
   </div>
+</div>
 </body>
 </html>

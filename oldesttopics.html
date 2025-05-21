@@ -170,9 +170,10 @@
   </div>
 
   <div class="topic-filters">
-    <a href="profile.html"><button>All Topics</button></a>
-    <a href="populartopics.html"><button>Popular Topics</button></a>
-    <a href="oldesttopics.html"><button class="active">Oldest Topics</button></a>
+  <button onclick="window.location.href='profile.html'">All Topics</button>
+    <button onclick="window.location.href='populartopics.html'">Popular Topics</button>
+        <button class="active" onclick="setActiveFilter(this)">Oldest Topics</button>
+  
   </div>
 
   <div class="topics-grid">
@@ -187,6 +188,7 @@
     </div>
   </div>
 
-  <button class="back-btn" onclick="window.history.back()">Back</button>
+ <button class="back-btn" onclick="window.location.href='dashboard.html'">Back</button>
+
 </body>
 </html>

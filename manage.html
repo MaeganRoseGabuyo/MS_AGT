@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploads</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .header {
+            background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
+            padding: 24px 0 12px 0;
+            text-align: left;
+            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+            position: relative;
+        }
+        .header-title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-left: 48px;
+            text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+        }
+        .header-title .goes { color: #3ec6ff; }
+        .header-title .tambayan { color: #ff2d2d; }
+        .header-desc {
+            font-size: 1.08rem;
+            margin-left: 52px;
+            margin-top: 7px;
+            color: #fff;
+            opacity: 0.92;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 6px #222;
+        }
+        .main-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex: 1;
+            padding: 40px 40px 40px 60px;
+        }
+        .sidebar {
+            width: 320px;
+            background: #7a6a22;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0 0 0;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #f3c6e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        .profile-pic i {
+            font-size: 4rem;
+            color: #fff;
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .upload-btn {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .upload-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 6px;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #fff;
+        }
+        .uploads-table-header {
+            display: flex;
+            align-items: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #fff;
+            padding-bottom: 6px;
+        }
+        .uploads-table-header > div {
+            padding-right: 18px;
+        }
+        .col-thumb { width: 160px; }
+        .col-title { width: 230px; }
+        .col-desc { flex: 1; }
+        .col-listens { width: 100px; }
+        .col-ratings { width: 200px; }
+        .uploaded-row {
+            display: flex;
+            align-items: center;
+            background: #222;
+            color: #fff;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            padding: 18px 24px;
+            box-shadow: 0 2px 12px #0002;
+        }
+        .uploaded-thumb {
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            background: #444;
+            object-fit: cover;
+            margin-right: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #ffe85c;
+        }
+        .uploaded-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .uploaded-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffe85c;
+        }
+        .uploaded-desc {
+            font-size: 1rem;
+            color: #fff;
+            opacity: 0.92;
+        }
+        .uploaded-audio {
+            margin-top: 8px;
+        }
+        .uploaded-listens {
+            width: 110px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #ffe85c;
+        }
+        .uploaded-ratings {
+            width: 140px;
+            text-align: center;
+            color: #ffe85c;
+            font-size: 1.3rem;
+        }
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; justify-content: space-between; padding: 20px; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header" style="position:relative;">
+        <div class="header-title">
+            <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+        </div>
+        <div class="header-desc">
+            Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
+        </div>
+        <button onclick="window.history.back()" style="position:absolute;top:5px;left:5px;background:#222;color:#ffe85c;border:none;border-radius:50px;padding:10px 22px;font-size:1.1rem;font-weight:500;cursor:pointer;box-shadow:0 2px 8px #0005;display:flex;align-items:center;gap:8px;z-index:9;">
+            <i class="fa fa-arrow-left"></i> 
+        </button>
+    </div>
+    <div class="main-layout">
+        <div class="main-content">
+            <div class="section-title">Manage Topics</div>
+            <div class="uploads-table-header">
+                <div class="col-thumb">Topics</div>
+                <div class="col-title">Title</div>
+                <div class="col-desc">Description</div>
+                <div class="col-listens">Listens</div>
+                <div class="col-ratings">Ratings</div>
+            </div>
+            <div id="uploads-list"></div>
+        </div>
+        <div class="sidebar">
+            <div class="profile-pic">
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="profile-name">Maegan Rose<br>Santiago</div>
+            <div class="upload-btn" onclick="window.location.href='upload.html'">
+                <i class="fa fa-arrow-up"></i>
+                Upload
+            </div>
+        </div>
+    </div>
+    <script>
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function getStars(rating) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                stars += `<i class="fa${i < rating ? 's' : 'r'} fa-star"></i>`;
+            }
+            return stars;
+        }
+        function renderUploads() {
+            const uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
+            const list = document.getElementById('uploads-list');
+            list.innerHTML = '';
+            if (uploads.length === 0) {
+                list.innerHTML = '<p style="color:#fff;">No uploads yet.</p>';
+            } else {
+                uploads.forEach((u, idx) => {
+                    const listens = getRandomInt(100, 100000);
+                    const rating = getRandomInt(3, 5);
+                    const div = document.createElement('div');
+                    div.className = 'uploaded-row';
+
+                    // Check if the file is an image
+                    let thumbHtml = '';
+                    if (u.fileData && u.fileData.startsWith('data:image')) {
+                        thumbHtml = `<img src="${u.fileData}" alt="Thumbnail" class="uploaded-thumb" style="width:90px;height:90px;object-fit:cover;border-radius:10px;margin-right:28px;">`;
+                    } else {
+                        thumbHtml = `<div class="uploaded-thumb"><i class="fa fa-microphone"></i></div>`;
+                    }
+
+                    div.innerHTML = `
+                        ${thumbHtml}
+                        <div class="uploaded-info" style="width:180px;">
+                            <div class="uploaded-title">${u.title}</div>
+                        </div>
+                        <div class="uploaded-info uploaded-desc" style="flex:1;">
+                            ${u.description}
+                            ${u.fileData && u.fileData.startsWith('data:audio') ? `<audio class="uploaded-audio" controls src="${u.fileData}"></audio>` : ''}
+                        </div>
+                        <div class="uploaded-listens">${listens >= 1000 ? Math.round(listens/1000)+'k' : listens}</div>
+                        <div class="uploaded-ratings">${getStars(rating)}</div>
+                        <button class="delete-upload" data-idx="${idx}" style="margin-left:18px;background:#ff2d2d;color:#fff;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-weight:600;">Delete</button>
+                    `;
+                    list.appendChild(div);
+                });
+
+                // Add event listeners for delete buttons
+                document.querySelectorAll('.delete-upload').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.getAttribute('data-idx'));
+                        let uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
+                        uploads.splice(idx, 1);
+                        sessionStorage.setItem('uploads', JSON.stringify(uploads));
+                        renderUploads();
+                    });
+                });
+            }
+        }
+        renderUploads();
+    </script>
+</body>
+</html>

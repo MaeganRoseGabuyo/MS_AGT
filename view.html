@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anything Goes Tambayan</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .header {
+      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
+      padding: 24px 0 12px 0;
+      text-align: center; /* changed from left to center */
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+    }
+    .header-title {
+      font-size: 2.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      /* margin-left: 48px; */ /* remove this line */
+      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+    }
+    .header-title .goes { color: #3ec6ff; }
+    .header-title .tambayan { color: #ff2d2d; }
+    .header-desc {
+      font-size: 1.08rem;
+      /* margin-left: 52px; */ /* remove this line */
+      margin-top: 7px;
+      color: #fff;
+      opacity: 0.92;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px #222;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 40px auto 0 auto;
+      max-width: 1200px;
+      gap: 40px;
+    }
+    .main-player {
+      background: #3a6e8f;
+      border-radius: 12px;
+      padding: 24px 24px 16px 24px;
+      width: 520px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .main-player img {
+      width: 50%;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: #222;
+    }
+    .audio-controls {
+      width: 100%;
+      margin: 16px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #fff;
+      border-radius: 3px;
+      margin-bottom: 12px;
+      opacity: 0.7;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 8px;
+    }
+    .controls button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .controls button:hover {
+      color: #ffe600;
+    }
+    .episode-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 12px 0 0 0;
+    }
+    .episode-meta {
+      font-size: 0.98rem;
+      color: #ccc;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .playlist {
+      width: 370px;
+      margin-left: 0;
+    }
+    .playlist-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .playlist-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      background: #181818;
+      border-radius: 8px;
+      padding: 8px 12px;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: background 0.2s, border 0.2s;
+    }
+    .playlist-item:hover {
+      background: #232323;
+      border-color: #ffe600;
+    }
+    .playlist-thumb {
+      width: 70px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 14px;
+      background: #222;
+    }
+    .playlist-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .playlist-ep-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+      color: #fff;
+    }
+    .playlist-date {
+      font-size: 0.92rem;
+      color: #bdbdbd;
+    }
+    .episode-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 48px auto 0 auto;
+      padding-bottom: 48px;
+    }
+    .episode-details {
+      flex: 1.2;
+      color: #eaeaea;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      max-width: 540px;
+    }
+    .episode-details p {
+      margin-top: 0;
+      margin-bottom: 36px;
+      color: #cbe6ff;
+    }
+    .rating-box {
+      border: 2px solid #fff;
+      border-radius: 10px;
+      padding: 28px 0 18px 0;
+      text-align: center;
+      margin-top: 24px;
+      background: rgba(0,0,0,0.2);
+    }
+    .rating-title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .stars {
+      font-size: 2.6rem;
+      color: #ffe600;
+      letter-spacing: 8px;
+      cursor: pointer;
+    }
+    .comments-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 340px;
+      max-width: 400px;
+    }
+    .comment-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .comment-input input {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      background: #181818;
+      color: #fff;
+      outline: none;
+      border: 1px solid #333;
+    }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 6px;
+      background: #222;
+    }
+    .comment {
+      display: flex;
+      align-items: flex-start;
+      background: #181818;
+      border-radius: 8px;
+      padding: 10px 14px;
+      border: 1px solid #333;
+      gap: 10px;
+      position: relative;
+    }
+    .comment-user {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.05rem;
+    }
+    .comment-text {
+      color: #eaeaea;
+      margin: 2px 0 0 0;
+      font-size: 0.98rem;
+    }
+    .comment-likes {
+      color: #bdbdbd;
+      font-size: 0.95rem;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    @media (max-width: 1000px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .playlist {
+        width: 100%;
+        margin-top: 32px;
+      }
+      .main-player {
+        width: 100%;
+      }
+      .episode-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+      }
+      .episode-details, .comments-section {
+        max-width: 100%;
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">
+      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+    </div>
+    <div class="header-desc">
+      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
+    </div>
+  </div>
+  <div class="container">
+    <div class="main-player">
+      <img src="img/pod1.jpg" alt="Podcast Main Cover">
+      <div class="audio-controls">
+        <div class="progress-bar"></div>
+        <div class="controls">
+          <button title="Previous">&#9198;</button>
+          <button title="Rewind">&#9194;</button>
+          <button title="Play">&#9654;</button>
+          <button title="Forward">&#9193;</button>
+          <button title="Next">&#9197;</button>
+        </div>
+      </div>
+      <div class="episode-title">Episode 1: Podcast Talk Show with Juan Luna</div>
+      <div class="episode-meta">April 5, 2023 &nbsp; &bull; &nbsp; 21.9k Listens</div>
+    </div>
+    <div class="playlist">
+      <div class="playlist-title">Playlist</div>
+      <div class="playlist-list">
+        <div class="playlist-item">
+          <img class="playlist-thumb" src="https://i.ibb.co/7kQk8wB/podcast-ep2.jpg" alt="Ep2">
+          <div class="playlist-info">
+            <div class="playlist-ep-title">Episode 2: International Podcast Day</div>
+            <div class="playlist-date">April 5, 2023</div>
+          </div>
+        </div>
+        <div class="playlist-item">
+          <img class="playlist-thumb" src="https://i.ibb.co/6bQw3k2/podcast-ep3.jpg" alt="Ep3">
+          <div class="playlist-info">
+            <div class="playlist-ep-title">Episode 3: The Podcast with Special Guest</div>
+            <div class="playlist-date">April 5, 2023</div>
+          </div>
+        </div>
+        <div class="playlist-item">
+          <img class="playlist-thumb" src="https://i.ibb.co/3Wk6j7T/podcast-ep4.jpg" alt="Ep4">
+          <div class="playlist-info">
+            <div class="playlist-ep-title">Episode 4: The Podcast</div>
+            <div class="playlist-date">April 5, 2023</div>
+          </div>
+        </div>
+        <div class="playlist-item">
+          <img class="playlist-thumb" src="https://i.ibb.co/4Jb6yQy/podcast-ep5.jpg" alt="Ep5">
+          <div class="playlist-info">
+            <div class="playlist-ep-title">Episode 4: The Positive Lifestyle Podcast</div>
+            <div class="playlist-date">April 5, 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="episode-section">
+    <div class="episode-details">
+      <p>
+        In this episode, we dive deep into the life and legacy of Juan Luna &mdash; not just a celebrated Filipino painter, but a passionate patriot whose works ignited national pride.<br>
+        From the powerful brushstrokes of Spoliarium to his role in the Propaganda Movement, we explore the heart and mind of an artist who painted not just images, but ideals.
+      </p>
+      <div class="rating-box">
+        <div class="rating-title">How do you like this topic?</div>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+        </div>
+      </div>
+    </div>
+    <div class="comments-section">
+      <div class="comment-input">
+        <img class="avatar" src="https://i.ibb.co/6Yb6w8H/avatar1.png" alt="avatar" />
+        <input type="text" placeholder="Add a comment..." />
+      </div>
+      <div class="comment">
+        <img class="avatar" src="https://i.ibb.co/6Yb6w8H/avatar1.png" alt="avatar" />
+        <div>
+          <span class="comment-user">Paul Santiago</span>
+          <div class="comment-text">I swear, if he had IG back then, puro aesthetic feed yan with deep captions.</div>
+          <div class="comment-likes"><span>&#128077;</span> 500k</div>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="avatar" src="https://i.ibb.co/2d9ZQpG/avatar2.png" alt="avatar" />
+        <div>
+          <span class="comment-user">Justin Tarala AKA Flores</span>
+          <div class="comment-text">Listening to this made me feel like I was part of the 1800s revolution&mdash;but make it artsy.</div>
+          <div class="comment-likes"><span>&#128077;</span> 789</div>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="avatar" src="https://i.ibb.co/9bYw8kF/avatar3.png" alt="avatar" />
+        <div>
+          <span class="comment-user">Isabaw mo sa kanin</span>
+          <div class="comment-text">If Juan Luna was alive today, baka siya na rin ang nagde-design ng mga IG filters. HAHAHAHAHA</div>
+          <div class="comment-likes"><span>&#128077;</span> 4.7k</div>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="avatar" src="https://i.ibb.co/6Yb6w8H/avatar1.png" alt="avatar" />
+        <div>
+          <span class="comment-user">user758699274547</span>
+          <div class="comment-text">Luna: makes historical art. Me: makes to-do list then ignores it. Inspiring talaga.</div>
+          <div class="comment-likes"><span>&#128077;</span> 3.9k</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.querySelector('.comment-input input');
+  const commentsSection = document.querySelector('.comments-section');
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && input.value.trim() !== '') {
+      const commentText = input.value.trim();
+      // Create comment element
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment';
+      commentDiv.innerHTML = `
+        <img class="avatar" src="https://i.ibb.co/6Yb6w8H/avatar1.png" alt="avatar" />
+        <div>
+          <span class="comment-user">You</span>
+          <div class="comment-text">${commentText}</div>
+          <div class="comment-likes"><span>&#128077;</span> 0</div>
+        </div>
+      `;
+      // Insert new comment after the input
+      commentsSection.insertBefore(commentDiv, commentsSection.children[1]);
+      input.value = '';
+    }
+  });
+});
+</script>
+</body>
+</html>

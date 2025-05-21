@@ -246,5 +246,33 @@
     </div>
     <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back</button>
   </div>
+  <script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Get form values
+  const title = this.title.value;
+  const description = this.description.value;
+  const fileInput = this.file;
+  const file = fileInput.files[0];
+
+  // Read file as DataURL (for demo, not for large files)
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    // Get current uploads from sessionStorage
+    const uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
+    uploads.push({
+      title,
+      description,
+      fileName: file.name,
+      fileData: event.target.result
+    });
+    sessionStorage.setItem('uploads', JSON.stringify(uploads));
+    // Redirect to manage.html
+    window.location.href = 'manage.html';
+  };
+  reader.readAsDataURL(file);
+});
+</script>
 </body>
 </html>
