@@ -3,207 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uploads</title>
+    <title>Manage Topics</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             margin: 0;
-            font-family: 'Montserrat', Arial, sans-serif;
-            background: #000;
-            color: #fff;
-        }
-        .header {
-            background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
-            padding: 24px 0 12px 0;
-            text-align: left;
-            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
-            position: relative;
-        }
-        .header-title {
-            font-size: 2.7rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-left: 48px;
-            text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
-        }
-        .header-title .goes { color: #3ec6ff; }
-        .header-title .tambayan { color: #ff2d2d; }
-        .header-desc {
-            font-size: 1.08rem;
-            margin-left: 52px;
-            margin-top: 7px;
-            color: #fff;
-            opacity: 0.92;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 6px #222;
-        }
-        .main-layout {
-            display: flex;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
             min-height: 100vh;
         }
-        .main-content {
-            flex: 1;
-            padding: 40px 40px 40px 60px;
+        header {
+            background: #fff;
+            color: #222;
+            padding: 0;
+            min-height: 70px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            z-index: 10;
+            height: 70px;
         }
-        .sidebar {
-            width: 320px;
-            background: #7a6a22;
+        .header-content {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 40px 0 0 0;
+            justify-content: space-between;
+            height: 70px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e53935;
+            letter-spacing: 1px;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 2rem;
+        }
+        .search-bar input[type="text"] {
+            width: 400px;
+            padding: 0.6rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            font-size: 1rem;
+            background: #f5f5f5;
+            transition: border 0.2s;
+        }
+        .search-bar button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #555;
+            border-left: 1px solid #ccc;
+            transition: background 0.2s;
+        }
+        .search-bar button:hover {
+            background: #e3e3e3;
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .header-icon-btn {
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #444;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .header-icon-btn:hover {
+            background: #e3e3e3;
+            color: #1e3a8a;
         }
         .profile-pic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            cursor: pointer;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            min-width: 200px;
+            z-index: 100;
+            flex-direction: column;
+            padding: 0.5rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .dropdown-menu.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            color: #222;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .dropdown-menu a i {
+            font-size: 1.1rem;
+            color: #666;
+            transition: color 0.2s;
+        }
+        .dropdown-menu a:hover {
+            background: #f5f5f5;
+            color: #1e3a8a;
+        }
+        .dropdown-menu a:hover i {
+            color: #1e3a8a;
+        }
+        .container {
+            padding: 2rem;
+            margin-top: 90px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            align-items: start;
+        }
+        .user-sidebar {
+            background: rgb(191, 223, 233);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .user-avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: #f3c6e2;
+            margin: 0 auto 1.5rem;
+            border: 3px solid #f5f5f5;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 18px;
         }
-        .profile-pic i {
-            font-size: 4rem;
-            color: #fff;
+        .user-avatar i {
+            font-size: 3rem;
+            color: #1e3a8a;
         }
-        .profile-name {
+        .user-name {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 0.5rem;
         }
-        .upload-btn {
-            margin-top: 40px;
+        .user-role {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        .upload-button {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            color: #fff;
-            font-size: 1.2rem;
+            justify-content: center;
+            gap: 0.5rem;
+            background: #1e3a8a;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            width: 100%;
+            font-size: 1rem;
             cursor: pointer;
         }
-        .upload-btn i {
-            font-size: 2.5rem;
-            margin-bottom: 6px;
+        .upload-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
         }
         .section-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 18px;
-            color: #fff;
+            color: #222;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-title i {
+            color: #1e3a8a;
+            font-size: 1.6rem;
+        }
+        .uploads-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #eee;
         }
         .uploads-table-header {
-            display: flex;
+            display: grid;
+            grid-template-columns: 90px 220px 180px 120px 100px 120px 100px auto;
             align-items: center;
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #fff;
-            margin-bottom: 10px;
-            border-bottom: 3px solid #fff;
-            padding-bottom: 6px;
+            color: #555;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            gap: 0.75rem;
         }
         .uploads-table-header > div {
-            padding-right: 18px;
+            padding: 0.5rem;
         }
-        .col-thumb { width: 160px; }
-        .col-title { width: 230px; }
-        .col-desc { flex: 1; }
-        .col-listens { width: 100px; }
-        .col-ratings { width: 200px; }
+        .col-thumb { text-align: center; }
+        .col-title { text-align: left; }
+        .col-desc { text-align: left; }
+        .col-category { text-align: center; }
+        .col-listens { text-align: center; }
+        .col-ratings { text-align: center; }
+        .col-actions { text-align: center; }
         .uploaded-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 90px 220px 180px 120px 100px 120px 100px auto;
             align-items: center;
-            background: #222;
-            color: #fff;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            padding: 18px 24px;
-            box-shadow: 0 2px 12px #0002;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+            gap: 0.75rem;
+        }
+        .uploaded-row:last-child {
+            border-bottom: none;
+        }
+        .uploaded-row:hover {
+            background: #f8f9fa;
         }
         .uploaded-thumb {
-            width: 90px;
-            height: 90px;
-            border-radius: 10px;
-            background: #444;
-            object-fit: cover;
-            margin-right: 28px;
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            background: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            color: #ffe85c;
+            margin: 0 auto;
+            border: 1px solid #eee;
+        }
+        .uploaded-thumb i {
+            font-size: 1.5rem;
+            color: #1e3a8a;
         }
         .uploaded-info {
-            flex: 1;
             display: flex;
             flex-direction: column;
             gap: 6px;
+            padding-right: 1rem;
         }
         .uploaded-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ffe85c;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #222;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
         }
         .uploaded-desc {
-            font-size: 1rem;
-            color: #fff;
-            opacity: 0.92;
-        }
-        .uploaded-audio {
-            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
         .uploaded-listens {
-            width: 110px;
             text-align: center;
-            font-size: 1.1rem;
-            color: #ffe85c;
+            font-size: 0.95rem;
+            color: #555;
+            font-weight: 500;
         }
         .uploaded-ratings {
-            width: 140px;
             text-align: center;
-            color: #ffe85c;
-            font-size: 1.3rem;
+            color: #f59e0b;
+            font-size: 1rem;
+            letter-spacing: 2px;
         }
-        @media (max-width: 900px) {
-            .main-layout { flex-direction: column; }
-            .sidebar { width: 100%; flex-direction: row; justify-content: space-between; padding: 20px; }
-            .main-content { padding: 20px; }
+        .uploaded-category {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            background: #f3f4f6;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0 auto;
+            width: 80px;
+            display: block;
+        }
+        .delete-btn:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+            transform: translateY(-1px);
+        }
+        @media (max-width: 1024px) {
+            .search-bar { display: none; }
+            .container { padding: 1rem; }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .user-sidebar {
+                order: -1;
+            }
+            .uploads-table-header {
+                grid-template-columns: 80px 180px 130px 100px 90px 100px 90px 80px;
+                padding: 0.75rem;
+                gap: 0.5rem;
+            }
+            .uploaded-row {
+                grid-template-columns: 80px 180px 130px 100px 90px 100px 90px 80px;
+                padding: 0.75rem;
+                gap: 0.5rem;
+            }
+            .uploaded-thumb {
+                width: 60px;
+                height: 60px;
+            }
+            .uploaded-desc {
+                max-width: 130px;
+            }
+        }
+        @media (max-width: 768px) {
+            .uploads-table-header {
+                display: none;
+            }
+            .uploaded-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .uploaded-thumb {
+                width: 70px;
+                height: 70px;
+                margin: 0;
+            }
+            .uploaded-info {
+                padding-right: 0;
+            }
+            .uploaded-title {
+                white-space: normal;
+            }
+            .uploaded-desc {
+                max-width: none;
+                white-space: normal;
+                margin-top: 0.5rem;
+            }
+            .uploaded-listens, .uploaded-ratings {
+                text-align: left;
+            }
+            .delete-btn {
+                width: 100%;
+                margin: 0;
+            }
+            .uploaded-category {
+                text-align: left;
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header" style="position:relative;">
-        <div class="header-title">
-            <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
-        </div>
-        <div class="header-desc">
-            Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
-        </div>
-        <button onclick="window.history.back()" style="position:absolute;top:5px;left:5px;background:#222;color:#ffe85c;border:none;border-radius:50px;padding:10px 22px;font-size:1.1rem;font-weight:500;cursor:pointer;box-shadow:0 2px 8px #0005;display:flex;align-items:center;gap:8px;z-index:9;">
-            <i class="fa fa-arrow-left"></i> 
-        </button>
-    </div>
-    <div class="main-layout">
-        <div class="main-content">
-            <div class="section-title">Manage Topics</div>
-            <div class="uploads-table-header">
-                <div class="col-thumb">Topics</div>
-                <div class="col-title">Title</div>
-                <div class="col-desc">Description</div>
-                <div class="col-listens">Listens</div>
-                <div class="col-ratings">Ratings</div>
+    <header>
+        <div class="header-content">
+            <a href="dashboard.html" class="logo">
+                <img src="img/logo.png" alt="Prismatics Logo" style="height:48px; width:auto; display:block;" />
+                <span style="color:#ffe32d;"><strong>ANYTHING</strong></span>
+                <span style="color:#1e3a8a;"><strong>GOES</strong></span>
+                <span style="color:#e53935;"><strong>TAMBAYAN</strong></span>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Search topics..." />
+                <button><i class="fas fa-search"></i></button>
             </div>
-            <div id="uploads-list"></div>
-        </div>
-        <div class="sidebar">
-            <div class="profile-pic">
-                <i class="fa fa-user"></i>
+            <div class="header-icons">
+                <button class="header-icon-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+                <div class="dropdown-menu" id="dropdownMenu" style="right:0;">
+                    <a href="dashboard.html"><i class="fas fa-home"></i>Home</a>
+                    <a href="category.html"><i class="fas fa-th-large"></i>Category</a>
+                    <a href="discover.html"><i class="fas fa-compass"></i>Discover</a>
+                    <a href="top10.html"><i class="fas fa-chart-line"></i>Top 10 Podcasts</a>
+                    <a href="mostrecent.html"><i class="fas fa-clock"></i>Most Recent</a>
+                </div>
+                <a href="upload.html" class="header-icon-btn" title="Upload"><i class="fas fa-upload"></i></a>
+                <button class="header-icon-btn" id="profileBtn" title="Profile">
+                    <img src="img/avatar.jpg" alt="Profile" class="profile-pic" />
+                </button>
+                <div class="dropdown-menu" id="profileDropdown" style="right:0;">
+                    <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+                    <a href="manage.html"><i class="fas fa-tasks"></i>Manage Topics</a>
+                    <a href="index.html"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </div>
             </div>
-            <div class="profile-name">Maegan Rose<br>Santiago</div>
-            <div class="upload-btn" onclick="window.location.href='upload.html'">
-                <i class="fa fa-arrow-up"></i>
-                Upload
+        </div>
+    </header>
+    <div class="container">
+        <div class="content-grid">
+            <div>
+                <div class="section-title">
+                    <i class="fas fa-tasks"></i>
+                    Manage Topics
+                </div>
+                <div class="uploads-table">
+                    <div class="uploads-table-header">
+                        <div class="col-thumb">Topics</div>
+                        <div class="col-title">Title</div>
+                        <div class="col-desc">Description</div>
+                        <div class="col-category">Category</div>
+                        <div class="col-listens">Listens</div>
+                        <div class="col-ratings">Ratings</div>
+                        <div class="col-actions">Actions</div>
+                    </div>
+                    <div id="uploads-list"></div>
+                </div>
+            </div>
+            <div class="user-sidebar">
+                <div class="user-avatar">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="user-name">Maegan Rose Santiago</div>
+                <div class="user-role">Content Creator</div>
+                <button onclick="window.location.href='upload.html'" class="upload-button">
+                    <i class="fas fa-upload"></i>
+                    Upload New Topic
+                </button>
             </div>
         </div>
     </div>
@@ -223,40 +506,42 @@
             const list = document.getElementById('uploads-list');
             list.innerHTML = '';
             if (uploads.length === 0) {
-                list.innerHTML = '<p style="color:#fff;">No uploads yet.</p>';
+                list.innerHTML = '<div style="padding:2rem;text-align:center;color:#666;">No topics uploaded yet.</div>';
             } else {
                 uploads.forEach((u, idx) => {
                     const listens = getRandomInt(100, 100000);
                     const rating = getRandomInt(3, 5);
+                    const categories = ['Music', 'News', 'Technology', 'Entertainment', 'Education', 'Sports'];
+                    const category = u.category || categories[getRandomInt(0, categories.length - 1)];
                     const div = document.createElement('div');
                     div.className = 'uploaded-row';
 
-                    // Check if the file is an image
                     let thumbHtml = '';
                     if (u.fileData && u.fileData.startsWith('data:image')) {
-                        thumbHtml = `<img src="${u.fileData}" alt="Thumbnail" class="uploaded-thumb" style="width:90px;height:90px;object-fit:cover;border-radius:10px;margin-right:28px;">`;
+                        thumbHtml = `<img src="${u.fileData}" alt="Thumbnail" class="uploaded-thumb">`;
                     } else {
                         thumbHtml = `<div class="uploaded-thumb"><i class="fa fa-microphone"></i></div>`;
                     }
 
                     div.innerHTML = `
                         ${thumbHtml}
-                        <div class="uploaded-info" style="width:180px;">
+                        <div class="uploaded-info">
                             <div class="uploaded-title">${u.title}</div>
+                            ${u.fileData && u.fileData.startsWith('data:audio') ? 
+                                `<audio style="width:100%;height:30px;" controls src="${u.fileData}"></audio>` : 
+                                ''}
                         </div>
-                        <div class="uploaded-info uploaded-desc" style="flex:1;">
-                            ${u.description}
-                            ${u.fileData && u.fileData.startsWith('data:audio') ? `<audio class="uploaded-audio" controls src="${u.fileData}"></audio>` : ''}
-                        </div>
+                        <div class="uploaded-desc">${u.description || ''}</div>
+                        <div class="uploaded-category">${category}</div>
                         <div class="uploaded-listens">${listens >= 1000 ? Math.round(listens/1000)+'k' : listens}</div>
                         <div class="uploaded-ratings">${getStars(rating)}</div>
-                        <button class="delete-upload" data-idx="${idx}" style="margin-left:18px;background:#ff2d2d;color:#fff;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-weight:600;">Delete</button>
+                        <button class="delete-btn" data-idx="${idx}">Delete</button>
                     `;
                     list.appendChild(div);
                 });
 
                 // Add event listeners for delete buttons
-                document.querySelectorAll('.delete-upload').forEach(btn => {
+                document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const idx = parseInt(this.getAttribute('data-idx'));
                         let uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
@@ -267,6 +552,52 @@
                 });
             }
         }
+
+        // Initialize dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            // JavaScript to toggle the main menu dropdown
+            document.getElementById('menuBtn').addEventListener('click', function(event) {
+                event.stopPropagation();
+                var dropdown = document.getElementById('dropdownMenu');
+                if (dropdown.style.display === 'none' || !dropdown.style.display) {
+                    dropdown.style.display = 'flex';
+                    setTimeout(() => dropdown.classList.add('visible'), 10);
+                    document.getElementById('profileDropdown').style.display = 'none';
+                    document.getElementById('profileDropdown').classList.remove('visible');
+                } else {
+                    dropdown.classList.remove('visible');
+                    setTimeout(() => dropdown.style.display = 'none', 200);
+                }
+            });
+
+            // JavaScript to toggle the profile dropdown
+            document.getElementById('profileBtn').addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var profileDropdown = document.getElementById('profileDropdown');
+                if (profileDropdown.style.display === 'none' || !profileDropdown.style.display) {
+                    profileDropdown.style.display = 'flex';
+                    setTimeout(() => profileDropdown.classList.add('visible'), 10);
+                    document.getElementById('dropdownMenu').style.display = 'none';
+                    document.getElementById('dropdownMenu').classList.remove('visible');
+                } else {
+                    profileDropdown.classList.remove('visible');
+                    setTimeout(() => profileDropdown.style.display = 'none', 200);
+                }
+            });
+
+            // Close dropdowns if the user clicks outside
+            window.addEventListener('click', function(event) {
+                const dropdowns = [document.getElementById('dropdownMenu'), document.getElementById('profileDropdown')];
+                dropdowns.forEach(dropdown => {
+                    if (!event.target.closest('.header-icon-btn')) {
+                        dropdown.classList.remove('visible');
+                        setTimeout(() => dropdown.style.display = 'none', 200);
+                    }
+                });
+            });
+        });
+
         renderUploads();
     </script>
 </body>

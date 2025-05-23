@@ -3,301 +3,560 @@
 <head>
   <meta charset="UTF-8">
   <title>Anything Goes Tambayan</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #ffe600;
+      --secondary-color: #3ec6ff;
+      --accent-color: #ff2d2d;
+      --bg-color: #f9f9f9;
+      --card-bg: #fff;
+      --text-primary: #222;
+      --text-secondary: #666;
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
     body {
       margin: 0;
-      background: #111;
-      color: #fff;
-      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-primary);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
     }
-    .header {
-      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
-      padding: 24px 0 12px 0;
-      text-align: center; /* changed from left to center */
-      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+
+    header {
+      background: #fff;
+      color: #222;
+      padding: 0;
+      min-height: 70px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      z-index: 10;
+      height: 70px;
     }
-    .header-title {
-      font-size: 2.7rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      /* margin-left: 48px; */ /* remove this line */
-      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    .header-title .goes { color: #3ec6ff; }
-    .header-title .tambayan { color: #ff2d2d; }
-    .header-desc {
-      font-size: 1.08rem;
-      /* margin-left: 52px; */ /* remove this line */
-      margin-top: 7px;
-      color: #fff;
-      opacity: 0.92;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e53935;
+      letter-spacing: 1px;
+      gap: 0.5rem;
+      text-decoration: none;
     }
+
+    .logo i {
+      font-size: 2.2rem;
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 2rem;
+    }
+
+    .search-bar input[type="text"] {
+      width: 400px;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-size: 1rem;
+      background: #f5f5f5;
+      transition: border 0.2s;
+    }
+
+    .search-bar button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #555;
+      border-left: 1px solid #ccc;
+      transition: background 0.2s;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .header-icon-btn {
+      background: #f5f5f5;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #444;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .header-icon-btn:hover {
+      background: #e3e3e3;
+      color: #1e3a8a;
+    }
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eee;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      min-width: 200px;
+      z-index: 100;
+      flex-direction: column;
+      padding: 0.5rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .dropdown-menu.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      color: #222;
+      padding: 0.8rem 1.2rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
+    }
+
     .container {
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      margin: 40px auto 0 auto;
-      max-width: 1200px;
-      gap: 40px;
+      margin: 50px auto 0 auto;
+      max-width: 1300px;
+      gap: 50px;
+      padding: 0 20px;
     }
+
     .main-player {
-      background: #3a6e8f;
-      border-radius: 12px;
-      padding: 24px 24px 16px 24px;
-      width: 520px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      background: #fff;
+      border-radius: 18px;
+      padding: 30px;
+      width: 560px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     .main-player img {
-      width: 50%;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      background: #222;
+      width: 60%;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .main-player img:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+
     .audio-controls {
       width: 100%;
-      margin: 16px 0 0 0;
+      margin: 24px 0 0 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .progress-bar {
+
+    .progress-container {
       width: 100%;
       height: 6px;
-      background: #fff;
+      background: #f0f0f0;
       border-radius: 3px;
-      margin-bottom: 12px;
-      opacity: 0.7;
+      margin-bottom: 16px;
+      cursor: pointer;
     }
+
+    .progress-bar {
+      width: 30%;
+      height: 100%;
+      background: #1e3a8a;
+      border-radius: 3px;
+    }
+
     .controls {
       display: flex;
       justify-content: center;
-      gap: 32px;
-      margin-bottom: 8px;
+      gap: 40px;
+      margin-bottom: 12px;
+      align-items: center;
     }
+
     .controls button {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 2rem;
+      color: #444;
+      font-size: 1.8rem;
       cursor: pointer;
-      transition: color 0.2s;
-    }
-    .controls button:hover {
-      color: #ffe600;
-    }
-    .episode-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 12px 0 0 0;
-    }
-    .episode-meta {
-      font-size: 0.98rem;
-      color: #ccc;
-      margin-top: 2px;
+      transition: all 0.2s ease;
       opacity: 0.85;
+      padding: 8px;
+      border-radius: 50%;
     }
+
+    .controls button:hover {
+      color: #1e3a8a;
+      opacity: 1;
+      transform: scale(1.1);
+      background: #f5f5f5;
+    }
+
+    .episode-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 16px 0 0 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .episode-meta {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
     .playlist {
-      width: 370px;
-      margin-left: 0;
+      width: 400px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+
     .playlist-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 18px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #222;
     }
-    .playlist-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+
     .playlist-item {
       display: flex;
       align-items: center;
-      background: #181818;
-      border-radius: 8px;
-      padding: 8px 12px;
-      border: 1px solid #333;
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #eee;
       cursor: pointer;
-      transition: background 0.2s, border 0.2s;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
     }
+
     .playlist-item:hover {
-      background: #232323;
-      border-color: #ffe600;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: #1e3a8a;
     }
+
     .playlist-thumb {
-      width: 70px;
-      height: 48px;
+      width: 80px;
+      height: 56px;
       object-fit: cover;
-      border-radius: 6px;
-      margin-right: 14px;
-      background: #222;
+      border-radius: 8px;
+      margin-right: 16px;
     }
-    .playlist-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+
     .playlist-ep-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 2px;
-      color: #fff;
+      color: #222;
+      margin-bottom: 4px;
     }
+
     .playlist-date {
-      font-size: 0.92rem;
-      color: #bdbdbd;
+      font-size: 0.95rem;
+      color: #666;
     }
+
     .episode-section {
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      gap: 48px;
-      max-width: 1200px;
-      margin: 48px auto 0 auto;
-      padding-bottom: 48px;
+      gap: 60px;
+      max-width: 1300px;
+      margin: 60px auto 0 auto;
+      padding: 0 20px 60px 20px;
     }
+
     .episode-details {
       flex: 1.2;
-      color: #eaeaea;
-      font-size: 1.08rem;
-      line-height: 1.6;
-      max-width: 540px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+
     .episode-details p {
-      margin-top: 0;
-      margin-bottom: 36px;
-      color: #cbe6ff;
+      margin: 0 0 30px 0;
+      color: #444;
+      line-height: 1.8;
     }
+
     .rating-box {
-      border: 2px solid #fff;
-      border-radius: 10px;
-      padding: 28px 0 18px 0;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      padding: 24px;
       text-align: center;
-      margin-top: 24px;
-      background: rgba(0,0,0,0.2);
+      background: #f9f9f9;
     }
+
     .rating-title {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      color: #222;
     }
+
     .stars {
-      font-size: 2.6rem;
+      font-size: 2.4rem;
       color: #ffe600;
       letter-spacing: 8px;
       cursor: pointer;
     }
+
     .comments-section {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      min-width: 340px;
-      max-width: 400px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+
     .comment-input {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
     }
+
     .comment-input input {
       flex: 1;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: none;
+      padding: 12px 16px;
+      border: 1px solid #eee;
+      border-radius: 20px;
       font-size: 1rem;
-      background: #181818;
-      color: #fff;
       outline: none;
-      border: 1px solid #333;
+      transition: border-color 0.2s;
     }
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 6px;
-      background: #222;
+
+    .comment-input input:focus {
+      border-color: #1e3a8a;
     }
+
     .comment {
       display: flex;
       align-items: flex-start;
-      background: #181818;
-      border-radius: 8px;
-      padding: 10px 14px;
-      border: 1px solid #333;
-      gap: 10px;
-      position: relative;
+      padding: 16px 0;
+      border-bottom: 1px solid #eee;
+      gap: 12px;
     }
+
+    .comment:last-child {
+      border-bottom: none;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
     .comment-user {
-      font-weight: 700;
-      color: #fff;
-      font-size: 1.05rem;
+      font-weight: 600;
+      color: #222;
+      font-size: 1.1rem;
     }
+
     .comment-text {
-      color: #eaeaea;
-      margin: 2px 0 0 0;
-      font-size: 0.98rem;
+      color: #444;
+      margin: 4px 0;
+      line-height: 1.5;
     }
+
     .comment-likes {
-      color: #bdbdbd;
-      font-size: 0.95rem;
-      margin-top: 4px;
+      color: #666;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      cursor: pointer;
+      transition: color 0.2s;
     }
-    @media (max-width: 1000px) {
+
+    .comment-likes:hover {
+      color: #1e3a8a;
+    }
+
+    @media (max-width: 1100px) {
       .container {
         flex-direction: column;
         align-items: center;
+        padding: 0 16px;
       }
+
       .playlist {
         width: 100%;
-        margin-top: 32px;
+        margin-top: 40px;
       }
+
       .main-player {
         width: 100%;
+        max-width: 600px;
       }
+
       .episode-section {
         flex-direction: column;
         align-items: center;
-        gap: 32px;
+        gap: 40px;
+        padding: 0 16px 40px 16px;
       }
+
       .episode-details, .comments-section {
-        max-width: 100%;
-        min-width: 0;
+        width: 100%;
+      }
+
+      .search-bar input[type="text"] {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-content {
+        padding: 0 1rem;
+      }
+
+      .search-bar {
+        display: none;
+      }
+
+      .controls {
+        gap: 20px;
+      }
+
+      .controls button {
+        font-size: 1.5rem;
+      }
+
+      .episode-title {
+        font-size: 1.1rem;
+      }
+
+      .stars {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-title">
-      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+  <header>
+    <div class="header-content">
+      <a href="dashboard.html" class="logo">
+        <img src="img/logo.png" alt="Prismatics Logo" style="height:48px; width:auto; display:block;" />
+        <span style="color:#ffe32d;"><strong>ANYTHING</strong></span>
+        <span class="goes" style="color:#1e3a8a;"><strong>GOES</strong></span>
+        <span class="tambayan" style="color:#e53935;"><strong>TAMBAYAN</strong></span>
+      </a>
+      <div class="search-bar">
+        <input type="text" placeholder="Search podcasts..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="header-icons">
+        <button class="header-icon-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="category.html"><i class="fas fa-th-large"></i>Category</a>
+          <a href="discover.html"><i class="fas fa-compass"></i>Discover</a>
+          <a href="top10.html"><i class="fas fa-chart-line"></i>Top 10 Podcasts</a>
+          <a href="mostrecent.html"><i class="fas fa-clock"></i>Most Recent</a>
+        </div>
+        <a href="upload.html" class="header-icon-btn" title="Upload"><i class="fas fa-upload"></i></a>
+        <button class="header-icon-btn" id="profileBtn" title="Profile">
+          <img src="img/avatar.jpg" alt="Profile" class="profile-pic" />
+        </button>
+        <div class="dropdown-menu" id="profileDropdown">
+          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+          <a href="manage.html"><i class="fas fa-tasks"></i>Manage Topics</a>
+          <a href="index.html"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+      </div>
     </div>
-    <div class="header-desc">
-      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
-    </div>
-  </div>
+  </header>
   <div class="container">
     <div class="main-player">
       <img src="img/pod1.jpg" alt="Podcast Main Cover">
       <div class="audio-controls">
-        <div class="progress-bar"></div>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
         <div class="controls">
           <button title="Previous">&#9198;</button>
           <button title="Rewind">&#9194;</button>
-          <button title="Play">&#9654;</button>
+          <button title="Play" class="play-btn">&#9654;</button>
           <button title="Forward">&#9193;</button>
           <button title="Next">&#9197;</button>
+        </div>
+        <div class="volume-control">
+          <span>🔊</span>
+          <div class="volume-slider">
+            <div class="volume-level"></div>
+          </div>
         </div>
       </div>
       <div class="episode-title">Episode 1: Podcast Talk Show with Juan Luna</div>
@@ -394,30 +653,134 @@
     </div>
   </div>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const input = document.querySelector('.comment-input input');
-  const commentsSection = document.querySelector('.comments-section');
+    // JavaScript to toggle the main menu dropdown
+    document.getElementById('menuBtn').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('dropdownMenu');
+      if (dropdown.style.display === 'none' || !dropdown.style.display) {
+        dropdown.style.display = 'flex';
+        setTimeout(() => dropdown.classList.add('visible'), 10);
+        document.getElementById('profileDropdown').style.display = 'none';
+        document.getElementById('profileDropdown').classList.remove('visible');
+      } else {
+        dropdown.classList.remove('visible');
+        setTimeout(() => dropdown.style.display = 'none', 200);
+      }
+    });
 
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && input.value.trim() !== '') {
-      const commentText = input.value.trim();
-      // Create comment element
-      const commentDiv = document.createElement('div');
-      commentDiv.className = 'comment';
-      commentDiv.innerHTML = `
-        <img class="avatar" src="https://i.ibb.co/6Yb6w8H/avatar1.png" alt="avatar" />
-        <div>
-          <span class="comment-user">You</span>
-          <div class="comment-text">${commentText}</div>
-          <div class="comment-likes"><span>&#128077;</span> 0</div>
-        </div>
-      `;
-      // Insert new comment after the input
-      commentsSection.insertBefore(commentDiv, commentsSection.children[1]);
-      input.value = '';
-    }
-  });
-});
-</script>
+    // JavaScript to toggle the profile dropdown
+    document.getElementById('profileBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown.style.display === 'none' || !profileDropdown.style.display) {
+        profileDropdown.style.display = 'flex';
+        setTimeout(() => profileDropdown.classList.add('visible'), 10);
+        document.getElementById('dropdownMenu').style.display = 'none';
+        document.getElementById('dropdownMenu').classList.remove('visible');
+      } else {
+        profileDropdown.classList.remove('visible');
+        setTimeout(() => profileDropdown.style.display = 'none', 200);
+      }
+    });
+
+    // Close dropdowns if the user clicks outside
+    window.addEventListener('click', function(event) {
+      const dropdowns = [document.getElementById('dropdownMenu'), document.getElementById('profileDropdown')];
+      dropdowns.forEach(dropdown => {
+        if (!event.target.closest('.header-icon-btn')) {
+          dropdown.classList.remove('visible');
+          setTimeout(() => dropdown.style.display = 'none', 200);
+        }
+      });
+    });
+
+    // Player controls
+    const playBtn = document.querySelector('.play-btn');
+    const progressBar = document.querySelector('.progress-bar');
+    const volumeLevel = document.querySelector('.volume-level');
+    const stars = document.querySelectorAll('.star');
+    let isPlaying = false;
+
+    playBtn.addEventListener('click', function() {
+      isPlaying = !isPlaying;
+      playBtn.innerHTML = isPlaying ? '&#9208;' : '&#9654;';
+      playBtn.title = isPlaying ? 'Pause' : 'Play';
+    });
+
+    // Progress bar interaction
+    document.querySelector('.progress-container').addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const width = rect.width;
+      const percentage = (x / width) * 100;
+      progressBar.style.width = `${percentage}%`;
+    });
+
+    // Volume control interaction
+    document.querySelector('.volume-slider').addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const width = rect.width;
+      const percentage = (x / width) * 100;
+      volumeLevel.style.width = `${percentage}%`;
+    });
+
+    // Star rating interaction
+    stars.forEach((star, index) => {
+      star.addEventListener('mouseover', () => {
+        stars.forEach((s, i) => {
+          s.style.color = i <= index ? '#ffe600' : '#444';
+        });
+      });
+    });
+
+    document.querySelector('.stars').addEventListener('mouseleave', () => {
+      stars.forEach(star => {
+        star.style.color = '#ffe600';
+      });
+    });
+
+    // Playlist item hover effect
+    const playlistItems = document.querySelectorAll('.playlist-item');
+    playlistItems.forEach(item => {
+      item.addEventListener('click', function() {
+        playlistItems.forEach(i => i.style.borderColor = '#eee');
+        this.style.borderColor = '#1e3a8a';
+      });
+    });
+
+    // Comment functionality
+    const input = document.querySelector('.comment-input input');
+    const commentsSection = document.querySelector('.comments-section');
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && input.value.trim() !== '') {
+        const commentText = input.value.trim();
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+          <img class="avatar" src="img/avatar.jpg" alt="avatar" />
+          <div>
+            <span class="comment-user">You</span>
+            <div class="comment-text">${commentText}</div>
+            <div class="comment-likes"><span>&#128077;</span> 0</div>
+          </div>
+        `;
+        commentsSection.insertBefore(commentDiv, commentsSection.children[1]);
+        input.value = '';
+      }
+    });
+
+    // Comment likes interaction
+    document.querySelectorAll('.comment-likes').forEach(like => {
+      like.addEventListener('click', function() {
+        const count = this.textContent.split(' ')[1];
+        const newCount = parseInt(count) + 1;
+        this.innerHTML = `<span>&#128077;</span> ${newCount}`;
+        this.style.color = '#1e3a8a';
+      });
+    });
+  </script>
 </body>
 </html>

@@ -2,277 +2,649 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Settings - Anything Goes Tambayan</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <title>Upload Podcast - Anything Goes Tambayan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #4be1ec 0%, #1a6dff 100%);
+      --secondary-gradient: linear-gradient(135deg, #ff5858 0%, #ff2d2d 100%);
+      --text-primary: #222;
+      --text-secondary: #555;
+    }
+
     body {
       margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      height: 100vh;
-      overflow: hidden; /* Prevent scrolling */
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      min-height: 100vh;
     }
-    .header {
-      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
-      padding: 24px 0 12px 0;
-      text-align: left;
-      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+
+    header {
+      background: #fff;
+      color: #222;
+      padding: 0;
+      min-height: 70px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      z-index: 10;
+      height: 70px;
     }
-    .header-title {
-      font-size: 2.7rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-left: 48px;
-      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    .header-title .goes { color: #3ec6ff; }
-    .header-title .tambayan { color: #ff2d2d; }
-    .header-desc {
-      font-size: 1.08rem;
-      margin-left: 52px;
-      margin-top: 7px;
-      color: #fff;
-      opacity: 0.92;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e53935;
+      letter-spacing: 1px;
+      gap: 0.5rem;
+      text-decoration: none;
     }
-    .container {
-      height: 100vh; /* Fill viewport */
+
+    .logo i {
+      font-size: 2.2rem;
+    }
+
+    .search-bar {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      overflow: hidden; /* Prevent scrollbars */
+      margin: 0 2rem;
     }
-    .upload-card {
-      width: 100%;
-      max-width: 600px;         /* Increased from 400px */
-      box-sizing: border-box;
-      padding: 3rem 3rem;       /* Increased padding */
-      border-radius: 1.2rem;
-      box-shadow: 0 2px 24px rgba(0,0,0,0.22);
-      background: #fff;
-      color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      z-index: 1;
-      margin-bottom: 100px;
+
+    .search-bar input[type="text"] {
+      width: 400px;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-size: 1rem;
+      background: #f5f5f5;
+      transition: border 0.2s;
     }
-    .form-label {
-      font-weight: 500;
-    }
-    .btn-upload {
-      background: #007bff;
-      color: #fff;
-      font-weight: 500;
+
+    .search-bar button {
+      padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 6px;
-      padding: 10px 0;
-      margin-top: 10px;
+      background: #f5f5f5;
+      border-radius: 0 20px 20px 0;
       cursor: pointer;
+      font-size: 1.1rem;
+      color: #555;
+      border-left: 1px solid #ccc;
       transition: background 0.2s;
     }
-    .btn-upload:hover {
-      background: #0056b3;
+
+    .search-bar button:hover {
+      background: #e3e3e3;
     }
-    .back-btn {
-      position: fixed;          /* Changed from absolute */
-      bottom: 40px;
-      right: 60px;
-      background: linear-gradient(90deg, #ff5858 0%, #ff2d2d 100%);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 48px 14px 32px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-      box-shadow: 0 4px 18px #ff2d2d44, 0 2px 10px #ff2d2d22;
-      letter-spacing: 0.5px;
+
+    .header-icons {
       display: flex;
       align-items: center;
-      gap: 12px;
-      outline: none;
-      z-index: 100;
+      gap: 1.2rem;
     }
-    .back-btn i {
+
+    .header-icon-btn {
+      background: #f5f5f5;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.3rem;
-      margin-right: 8px;
-      transition: transform 0.2s;
+      color: #444;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
     }
-    .back-btn:hover {
-      background: linear-gradient(90deg, #ff7b7b 0%, #c1272d 100%);
-      box-shadow: 0 6px 24px #c1272d66;
-      transform: translateY(-2px) scale(1.04);
+
+    .header-icon-btn:hover {
+      background: #e3e3e3;
+      color: #1e3a8a;
     }
-    .back-btn:active {
-      transform: scale(0.98);
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eee;
+      cursor: pointer;
     }
-    .form-title {
-      color: #0a2c5e;
-      font-size: 1.2rem;
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      min-width: 200px;
+      z-index: 100;
+      flex-direction: column;
+      padding: 0.5rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .dropdown-menu.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      color: #222;
+      padding: 0.8rem 1.2rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a i {
+      font-size: 1.1rem;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
+    }
+
+    .dropdown-menu a:hover i {
+      color: #1e3a8a;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: calc(100vh - 70px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .upload-section {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .upload-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(30,58,138,0.18);
+    }
+
+    .section-title {
+      color: var(--text-primary);
+      font-size: 1.5rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 2rem;
+      position: relative;
     }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--primary-gradient);
+      border-radius: 2px;
+    }
+
+    .upload-boxes-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
     .upload-box {
-      border: 2px solid #bbb;
-      border-radius: 8px;
-      padding: 1.5rem 0 1rem 0;
+      border: 2.5px dashed #1a6dff;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
-      margin-bottom: 1.1rem;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
+      background: rgba(26, 109, 255, 0.05);
+      min-height: 150px;
+      justify-content: center;
+      flex: 1;
+      width: 50%;
     }
-    .upload-box:hover {
-      border-color: #007bff;
+
+    #thumbnailZone {
+      border-color: #4be1ec;
+      background: rgba(75, 225, 236, 0.05);
     }
+
+    #thumbnailZone .upload-icon {
+      color: #4be1ec;
+    }
+
+    #thumbnailZone:hover {
+      border-color: #1a6dff;
+      background: rgba(26, 109, 255, 0.08);
+    }
+
+    #thumbnailZone:hover .upload-icon {
+      color: #1a6dff;
+    }
+
     .upload-icon {
-      font-size: 2.8rem;
-      color: #222;
-      margin-bottom: 0.3rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
     }
+
     .upload-text {
-      color: #222;
-      font-size: 1.1rem;
-      font-weight: 500;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: color 0.3s ease;
     }
+
     .form-input {
       width: 100%;
-      padding: 0.7rem 1rem;
-      margin-bottom: 1rem;
-      border: 1.5px solid #bbb;
-      border-radius: 7px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
       font-size: 1rem;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
       background: #fff;
-      color: #222;
-      resize: none;
+      color: var(--text-primary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-sizing: border-box;
     }
+
     .form-input:focus {
-      border-color: #007bff;
+      border-color: #1a6dff;
+      box-shadow: 0 4px 15px rgba(26, 109, 255, 0.15);
     }
+
     .btn-publish {
       width: 100%;
-      padding: 0.8rem 0;
+      padding: 1rem;
       border: none;
-      border-radius: 7px;
-      background: linear-gradient(90deg, #4be1ec 0%, #1a6dff 100%);
+      border-radius: 10px;
+      background: var(--primary-gradient);
       color: #fff;
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      margin-top: 0.2rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
     }
-    .btn-publish:hover {
-      background: linear-gradient(90deg, #1a6dff 0%, #4be1ec 100%);
-      transform: scale(1.03);
-    }
-    .close-btn {
+
+    .btn-publish::before {
+      content: '';
       position: absolute;
-      top: 18px;
-      right: 18px;
-      background: none;
-      border: none;
-      color: #222;
-      font-size: 1.4rem;
-      cursor: pointer;
-      z-index: 10;
-      padding: 4px 8px;
-      transition: color 0.2s, background 0.2s;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
     }
-    .close-btn:hover {
-      color: #fff;
-      background: #ff2d2d;
+
+    .btn-publish:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(26, 109, 255, 0.4);
+    }
+
+    .btn-publish:hover::before {
+      left: 100%;
+    }
+
+    .loading {
+      position: relative;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #fff;
+      border-top-color: transparent;
       border-radius: 50%;
+      animation: loading 0.8s linear infinite;
     }
-    @media (max-width: 900px) {
+
+    @keyframes loading {
+      to { transform: rotate(360deg); }
+    }
+
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+      padding-right: 2.5rem;
+    }
+
+    select.form-input:invalid {
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        display: none;
+      }
+      
       .container {
+        padding: 1rem;
+      }
+
+      .upload-section {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .form-input {
+        padding: 0.8rem 1rem;
+      }
+
+      .upload-boxes-container {
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        min-height: unset;
-        padding: 30px 0;
       }
-      .upload-card {
-        margin: 40px auto 0 auto;
-        max-width: 98vw;        /* Responsive for mobile */
-        padding: 1.5rem 0.5rem;
-      }
-      .back-btn {
-        right: 20px;
-        bottom: 20px;
-        padding: 12px 24px;
-        font-size: 1rem;
+
+      .upload-box {
+        width: 100%;
+        min-height: 120px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-title">
-      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+  <header>
+    <div class="header-content">
+      <a href="dashboard.html" class="logo">
+        <img src="img/logo.png" alt="Prismatics Logo" style="height:48px; width:auto; display:block;" />
+        <span style="color:#ffe32d;"><strong>ANYTHING</strong></span>
+        <span class="goes" style="color:#1e3a8a;"><strong>GOES</strong></span>
+        <span class="tambayan" style="color:#e53935;"><strong>TAMBAYAN</strong></span>
+      </a>
+      <div class="search-bar">
+        <input type="text" placeholder="Search podcasts..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="header-icons">
+        <button class="header-icon-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu" style="right:0;">
+          <a href="category.html"><i class="fas fa-th-large"></i>Category</a>
+          <a href="discover.html"><i class="fas fa-compass"></i>Discover</a>
+          <a href="top10.html"><i class="fas fa-chart-line"></i>Top 10 Podcasts</a>
+          <a href="mostrecent.html"><i class="fas fa-clock"></i>Most Recent</a>
+        </div>
+        <a href="upload.html" class="header-icon-btn" title="Upload" style="background: #1a6dff; color: #fff;">
+          <i class="fas fa-upload"></i>
+        </a>
+        <button class="header-icon-btn" id="profileBtn" title="Profile">
+          <img src="img/avatar.jpg" alt="Profile" class="profile-pic" />
+        </button>
+        <div class="dropdown-menu" id="profileDropdown" style="right:0;">
+          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+          <a href="manage.html"><i class="fas fa-tasks"></i>Manage Topics</a>
+          <a href="index.html"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+      </div>
     </div>
-    <div class="header-desc">
-      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
-    </div>
-  </div>
+  </header>
+
   <div class="container">
-    <div class="upload-card" style="position:relative;">
-      <!-- X Button -->
-      <button class="close-btn" type="button" onclick="window.location.href='dashboard.html'" aria-label="Close">
-        <i class="fa fa-times"></i>
-      </button>
-      <h3 class="form-title">Upload your podcast here.</h3>
-      <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <label for="fileInput" class="upload-box">
-          <i class="fa fa-upload upload-icon"></i>
-          <div class="upload-text">Upload</div>
-          <input type="file" id="fileInput" name="file" required style="display:none;">
-        </label>
-        <input type="text" class="form-input" name="title" placeholder="Title..." required>
-        <textarea class="form-input" name="description" placeholder="Description..." rows="2" required></textarea>
-        <button type="submit" class="btn-publish">Publish</button>
+    <div class="upload-section">
+      <h3 class="section-title">Upload Your Podcast</h3>
+      <form action="upload.php" method="POST" enctype="multipart/form-data" id="uploadForm">
+        <div class="upload-boxes-container">
+          <label for="thumbnailInput" class="upload-box" id="thumbnailZone">
+            <i class="fa fa-image upload-icon"></i>
+            <div class="upload-text">Upload Thumbnail Image</div>
+            <input type="file" id="thumbnailInput" name="thumbnail" required style="display:none;" accept="image/*">
+          </label>
+          <label for="audioInput" class="upload-box" id="audioZone">
+            <i class="fa fa-music upload-icon"></i>
+            <div class="upload-text">Upload Audio File</div>
+            <input type="file" id="audioInput" name="audio" required style="display:none;" accept="audio/*">
+          </label>
+        </div>
+        <input type="text" class="form-input" name="title" placeholder="Enter podcast title..." required>
+        <select class="form-input" name="category" required>
+          <option value="">Select Category</option>
+          <option value="business">Business</option>
+          <option value="health">Health & Wellness</option>
+          <option value="technology">Technology</option>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="education">Education</option>
+          <option value="sports">Sports</option>
+          <option value="comedy">Comedy</option>
+          <option value="music">Music</option>
+        </select>
+        <textarea class="form-input" name="description" placeholder="Write a description for your podcast..." rows="3" required></textarea>
+        <button type="submit" class="btn-publish" id="publishBtn">
+          <i class="fas fa-podcast"></i> Publish Podcast
+        </button>
       </form>
     </div>
-    <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back</button>
   </div>
+
   <script>
-document.querySelector('form').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  // Get form values
-  const title = this.title.value;
-  const description = this.description.value;
-  const fileInput = this.file;
-  const file = fileInput.files[0];
-
-  // Read file as DataURL (for demo, not for large files)
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    // Get current uploads from sessionStorage
-    const uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
-    uploads.push({
-      title,
-      description,
-      fileName: file.name,
-      fileData: event.target.result
+    // JavaScript to toggle the main menu dropdown
+    document.getElementById('menuBtn').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('dropdownMenu');
+      if (dropdown.style.display === 'none' || !dropdown.style.display) {
+        dropdown.style.display = 'flex';
+        setTimeout(() => dropdown.classList.add('visible'), 10);
+        document.getElementById('profileDropdown').style.display = 'none';
+        document.getElementById('profileDropdown').classList.remove('visible');
+      } else {
+        dropdown.classList.remove('visible');
+        setTimeout(() => dropdown.style.display = 'none', 200);
+      }
     });
-    sessionStorage.setItem('uploads', JSON.stringify(uploads));
-    // Redirect to manage.html
-    window.location.href = 'manage.html';
-  };
-  reader.readAsDataURL(file);
-});
-</script>
+
+    // JavaScript to toggle the profile dropdown
+    document.getElementById('profileBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown.style.display === 'none' || !profileDropdown.style.display) {
+        profileDropdown.style.display = 'flex';
+        setTimeout(() => profileDropdown.classList.add('visible'), 10);
+        document.getElementById('dropdownMenu').style.display = 'none';
+        document.getElementById('dropdownMenu').classList.remove('visible');
+      } else {
+        profileDropdown.classList.remove('visible');
+        setTimeout(() => profileDropdown.style.display = 'none', 200);
+      }
+    });
+
+    // Close dropdowns if the user clicks outside
+    window.addEventListener('click', function(event) {
+      const dropdowns = [document.getElementById('dropdownMenu'), document.getElementById('profileDropdown')];
+      dropdowns.forEach(dropdown => {
+        if (!event.target.closest('.header-icon-btn')) {
+          dropdown.classList.remove('visible');
+          setTimeout(() => dropdown.style.display = 'none', 200);
+        }
+      });
+    });
+
+    // Enhance file upload interaction
+    const thumbnailZone = document.getElementById('thumbnailZone');
+    const audioZone = document.getElementById('audioZone');
+    const thumbnailInput = document.getElementById('thumbnailInput');
+    const audioInput = document.getElementById('audioInput');
+    const form = document.getElementById('uploadForm');
+    const publishBtn = document.getElementById('publishBtn');
+
+    // Drag and drop functionality for both zones
+    [thumbnailZone, audioZone].forEach(zone => {
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        zone.addEventListener(eventName, preventDefaults, false);
+      });
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Highlight effects for thumbnail zone
+    ['dragenter', 'dragover'].forEach(eventName => {
+      thumbnailZone.addEventListener(eventName, () => highlight(thumbnailZone), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      thumbnailZone.addEventListener(eventName, () => unhighlight(thumbnailZone), false);
+    });
+
+    // Highlight effects for audio zone
+    ['dragenter', 'dragover'].forEach(eventName => {
+      audioZone.addEventListener(eventName, () => highlight(audioZone), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      audioZone.addEventListener(eventName, () => unhighlight(audioZone), false);
+    });
+
+    function highlight(zone) {
+      zone.style.borderColor = '#4be1ec';
+      zone.style.transform = 'scale(1.02)';
+    }
+
+    function unhighlight(zone) {
+      if (zone === thumbnailZone) {
+        zone.style.borderColor = '#4be1ec';
+      } else {
+        zone.style.borderColor = '#1a6dff';
+      }
+      zone.style.transform = 'scale(1)';
+    }
+
+    // Handle file drops
+    thumbnailZone.addEventListener('drop', (e) => handleDrop(e, thumbnailInput, 'image'), false);
+    audioZone.addEventListener('drop', (e) => handleDrop(e, audioInput, 'audio'), false);
+
+    function handleDrop(e, input, type) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length > 0) {
+        const file = files[0];
+        if (file.type.startsWith(type)) {
+          input.files = files;
+          updateFileName(input === thumbnailInput ? thumbnailZone : audioZone, file);
+        } else {
+          alert(`Please upload a valid ${type} file.`);
+        }
+      }
+    }
+
+    // Handle file input changes
+    thumbnailInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        updateFileName(thumbnailZone, e.target.files[0]);
+      }
+    });
+
+    audioInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        updateFileName(audioZone, e.target.files[0]);
+      }
+    });
+
+    function updateFileName(zone, file) {
+      const uploadText = zone.querySelector('.upload-text');
+      uploadText.textContent = `Selected: ${file.name}`;
+      zone.style.borderColor = '#4be1ec';
+    }
+
+    // Form submission with loading state
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      publishBtn.classList.add('loading');
+      publishBtn.disabled = true;
+
+      // Get form values
+      const title = this.title.value;
+      const description = this.description.value;
+      const category = this.category.value;
+      const thumbnail = thumbnailInput.files[0];
+      const audio = audioInput.files[0];
+
+      // Read files as DataURL
+      const thumbnailReader = new FileReader();
+      const audioReader = new FileReader();
+
+      thumbnailReader.onload = function(event) {
+        const thumbnailData = event.target.result;
+        
+        audioReader.onload = function(event) {
+          const audioData = event.target.result;
+          
+          const uploads = JSON.parse(sessionStorage.getItem('uploads') || '[]');
+          uploads.push({
+            title,
+            description,
+            category,
+            thumbnailName: thumbnail.name,
+            thumbnailData,
+            audioName: audio.name,
+            audioData: event.target.result
+          });
+          sessionStorage.setItem('uploads', JSON.stringify(uploads));
+          
+          // Simulate loading for better UX
+          setTimeout(() => {
+            window.location.href = 'manage.html';
+          }, 1000);
+        };
+        
+        audioReader.readAsDataURL(audio);
+      };
+      
+      thumbnailReader.readAsDataURL(thumbnail);
+    });
+  </script>
 </body>
 </html>

@@ -8,384 +8,485 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      height: 100vh;
-      overflow: hidden; /* Prevent scrolling */
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
     }
-    .header {
-      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
-      padding: 24px 0 12px 0;
-      text-align: left;
-      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+
+    header {
+      background: #fff;
+      color: #222;
+      padding: 0;
+      min-height: 70px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      z-index: 10;
+      height: 70px;
     }
-    .header-title {
-      font-size: 2.7rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-left: 48px;
-      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
-    }
-    .header-title .goes { color: #3ec6ff; }
-    .header-title .tambayan { color: #ff2d2d; }
-    .header-desc {
-      font-size: 1.08rem;
-      margin-left: 52px;
-      margin-top: 7px;
-      color: #fff;
-      opacity: 0.92;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
-    
-    }
-    .about-section {
-      max-width: 950px;
-      margin: 36px auto 0 auto;
-      padding: 32px 24px 48px 24px;
-      background: #000;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-    }
-    .about-section h2 {
-      color: #fff;
-      font-size: 2rem;
-      margin-bottom: 28px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-    .about-row {
+
+    .header-content {
       display: flex;
       align-items: center;
-      margin-bottom: 48px;
-      gap: 36px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      height: 70px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    .about-row.reverse {
-      flex-direction: row-reverse;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e53935;
+      letter-spacing: 1px;
+      gap: 0.5rem;
+      text-decoration: none;
     }
-    .about-img {
-      flex: 1 1 260px;
-      min-width: 240px;
-      max-width: 340px;
+
+    .search-bar {
+      flex: 1;
       display: flex;
       justify-content: center;
+      align-items: center;
+      margin: 0 2rem;
     }
-    .about-img img {
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px #2228;
+
+    .search-bar input[type="text"] {
+      width: 400px;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-size: 1rem;
+      background: #f5f5f5;
+      transition: border 0.2s;
+    }
+
+    .search-bar button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #555;
+      border-left: 1px solid #ccc;
+      transition: background 0.2s;
+    }
+
+    .search-bar button:hover {
+      background: #e3e3e3;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .header-icon-btn {
+      background: #f5f5f5;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #444;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .header-icon-btn:hover {
+      background: #e3e3e3;
+      color: #1e3a8a;
+    }
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       object-fit: cover;
+      border: 2px solid #eee;
+      cursor: pointer;
     }
-    .about-text {
-      flex: 2 1 340px;
-      min-width: 260px;
-      color: #fff;
-      padding: 0 12px;
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      min-width: 180px;
+      z-index: 100;
+      flex-direction: column;
+      padding: 0.5rem 0;
     }
-    .about-text h3 {
-      color: #ffe85c;
+
+    .dropdown-menu a {
+      color: #222;
+      padding: 0.7rem 1.2rem;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
+    }
+
+    .container {
+      padding: 2rem;
+      margin-top: 90px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      min-height: calc(100vh - 180px);
+    }
+
+    .sidebar {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      height: fit-content;
+    }
+
+    .sidebar h2 {
       font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
+      color: #222;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
     }
-    .about-text .highlight {
-      color: #3ec6ff;
-      font-weight: 800;
-    }
-    .about-text p {
-      font-size: 1.08rem;
-      line-height: 1.7;
-      color: #fff;
-      opacity: 0.95;
-      margin: 0;
-    }
-       .container {
-      display: flex;
-      height: calc(100vh - 90px);
-      overflow: hidden; /* Prevent double scrollbars */
-    }
-    .sidebar {
-      background: linear-gradient(180deg, #7a6f2c 80%, #ffe85c 100%);
-      width: 320px;
-      padding: 48px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      box-shadow: 2px 0 16px 0 rgba(0,0,0,0.12);
-    }
-    .sidebar h2 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      margin-left: 44px;
-      margin-bottom: 44px;
-      color: #191600;
-      letter-spacing: 1px;
-      text-shadow: 0 1px 0 #fff3;
-    }
-    .nav {
-      width: 100%;
-    }
+
     .nav-item {
       display: flex;
       align-items: center;
-      padding: 18px 0 18px 44px;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #fff;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      color: #444;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s, border-left 0.18s;
-      border-left: 8px solid transparent;
-      margin-bottom: 7px;
+      transition: all 0.2s;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
 
-      position: relative;
-    }
-    .nav-item.selected {
-      background: linear-gradient(90deg, #ffe85c 80%, #fff2 100%);
-      color: #191600;
-      border-left: 8px solid #ffe85c;
-      font-weight: 700;
-      z-index: 2;
-      box-shadow: 2px 4px 16px 0 rgba(255,232,92,0.08);
-    }
     .nav-item i {
-      margin-right: 18px;
-      font-size: 1.5rem;
-      opacity: 0.92;
-      transition: color 0.18s;
-    }
-    .nav-item.selected i {
-      color: #191600;
-    }
-    .nav-item:hover:not(.selected) {
-      background: #fff2;
-      color: #ffe85c;
-    }
-    .nav-item:hover:not(.selected) i {
-      color: #ffe85c;
-    }
-    .main-content {
-      flex: 1;
-      background: #000;
-      padding: 60px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow-y: auto;      /* Enable vertical scrolling */
-      height: 100%;          /* Take full height of container */
-    }
-    .account-title {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: #ffe85c;
-      margin-bottom: 36px;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 12px #222;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-    .account-title i {
-      color: #ffe85c;
-      font-size: 2.2rem;
-      opacity: 0.92;
-    }
-    .contact-section {
-      width: 100%;
-      max-width: 950px;
-      margin: 36px auto 0 auto;
-      padding: 32px 24px 48px 24px;
-      background: #000;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-    }
-    .contact-row {
-      display: flex;
-      gap: 48px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-    .contact-info {
-      flex: 1 1 260px;
-      min-width: 260px;
-      max-width: 340px;
-      color: #fff;
-    }
-    .contact-info h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
-    .contact-info p {
-      font-size: 1.08rem;
-      line-height: 1.7;
-      margin: 0 0 8px 0;
-    }
-    .contact-info i {
-      margin-right: 10px;
-      color: #ffe85c;
-      font-size: 1.1rem;
-      width: 22px;
-      display: inline-block;
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 24px;
       text-align: center;
     }
+
+    .nav-item:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
+    }
+
+    .nav-item.selected {
+      background: #1e3a8a;
+      color: white;
+    }
+
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .account-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .account-title i {
+      color: #1e3a8a;
+      font-size: 1.6rem;
+    }
+
+    .contact-section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      padding: 2rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .contact-info {
+      padding: 2rem;
+      background: #1e3a8a;
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.2);
+    }
+
+    .contact-info h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .contact-info p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+      width: 24px;
+      color: #ffe85c;
+      margin-right: 0.8rem;
+    }
+
     .contact-form {
-      flex: 2 1 340px;
-      min-width: 260px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 1.2rem;
     }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
     .contact-form label {
-      color: #ffe85c;
-      font-size: 1.08rem;
-      margin-bottom: 2px;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #444;
     }
+
     .contact-form input,
     .contact-form textarea {
-      background: #eaeaea;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 1.08rem;
-      margin-bottom: 6px;
-      outline: none;
-      resize: none;
-      color: #222;
-      font-family: inherit;
-      box-shadow: 0 2px 8px #2222;
-      transition: border 0.2s;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: white;
     }
-    .contact-form textarea {
-      border: 2px solid #8e5cff;
-    }
+
     .contact-form input:focus,
     .contact-form textarea:focus {
-      border: 2px solid #3ec6ff;
+      border-color: #1e3a8a;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
     }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
     .contact-form button {
-      background: linear-gradient(90deg, #5ee7df 0%, #2196f3 100%);
-      color: #fff;
+      padding: 1rem;
+      background: #1e3a8a;
+      color: white;
       border: none;
       border-radius: 8px;
-      padding: 12px 0;
-      font-size: 1.13rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 8px;
-      box-shadow: 0 2px 12px #2196f344;
-      letter-spacing: 0.5px;
-      transition: background 0.18s, box-shadow 0.18s;
+      transition: all 0.2s;
+      margin-top: 1rem;
     }
+
     .contact-form button:hover {
-      background: linear-gradient(90deg, #2196f3 0%, #5ee7df 100%);
-      box-shadow: 0 4px 18px #3ec6ff44;
+      background: #1e4a9a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30,58,138,0.2);
     }
-    @media (max-width: 900px) {
+
+    @media (max-width: 768px) {
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
       .container {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
+        padding: 1rem;
       }
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 24px 0 0 0;
-        min-height: unset;
-      }
-      .sidebar h2 {
-        margin-left: 24px;
-        margin-bottom: 0;
-        font-size: 1.5rem;
-      }
-      .nav {
-        display: flex;
-        flex-direction: row;
-        width: auto;
-        margin-left: 24px;
-      }
-      .nav-item, .nav-item.selected {
-        border-radius: 16px;
-        padding: 12px 18px;
-        margin-bottom: 0;
-        font-size: 1rem;
-      }
-      .main-content {
-        padding: 30px 0 0 0;
-        height: auto;
-        overflow: visible;
-      }
-      .profile-row {
-        flex-direction: column;
-        gap: 18px;
-        padding: 24px 18px;
-      }
-      .back-btn {
-        right: 20px;
-        bottom: 20px;
-        padding: 12px 24px;
-        font-size: 1rem;
-      }
-      .contact-row {
-        flex-direction: column;
-        gap: 24px;
-      }
+
       .contact-section {
-        padding: 18px 8px 28px 8px;
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+
+      .search-bar {
+        display: none;
+      }
+
+      .header-content {
+        padding: 0 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-title">
-      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
-    </div>
-    <div class="header-desc">
-      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
-    </div>
-  </div>
-  <div class="container">
-    <div class="sidebar">
-      <h2>Settings</h2>
-      <div class="nav">
-        <div class="nav-item" onclick="window.location.href='settings.html'"><i class="fa fa-user"></i> Account</div>
- 
-        <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
-        <div class="nav-item selected" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
+  <header>
+    <div class="header-content">
+      <a href="dashboard.html" class="logo">
+        <img src="img/logo.png" alt="Prismatics Logo" style="height:48px; width:auto; display:block;" />
+        <span style="color:#ffe32d;"><strong>ANYTHING</strong></span>
+        <span style="color:#1e3a8a;"><strong>GOES</strong></span>
+        <span style="color:#e53935;"><strong>TAMBAYAN</strong></span>
+      </a>
+      <div class="search-bar">
+        <input type="text" placeholder="Search podcasts..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="header-icons">
+        <button class="header-icon-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="dashboard.html">Home</a>
+          <a href="category.html">Category</a>
+          <a href="discover.html">Discover</a>
+          <a href="top10.html">Top 10 Podcasts</a>
+          <a href="mostrecent.html">Most Recent</a>
+        </div>
+        <a href="upload.html" class="header-icon-btn" title="Upload"><i class="fas fa-upload"></i></a>
+        <button class="header-icon-btn" id="profileBtn" title="Profile">
+          <img src="img/avatar.jpg" alt="Profile" class="profile-pic" />
+        </button>
+        <div class="dropdown-menu" id="profileDropdown">
+          <a href="profile.html">Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="manage.html">Manage Topics</a>
+          <a href="index.html">Logout</a>
+        </div>
       </div>
     </div>
-    <div class="main-content">
-      <div class="account-title"><i class="fa fa-envelope"></i> Contact Us</div>
+  </header>
 
+  <div class="container">
+    <div class="settings-grid">
+      <div class="sidebar">
+        <h2>Settings</h2>
+        <div class="nav">
+          <div class="nav-item" onclick="window.location.href='settings.html'"><i class="fa fa-user"></i> Account</div>
+          <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
+          <div class="nav-item selected" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="account-title"><i class="fa fa-envelope"></i> Contact Us</div>
 
-<div class="contact-section">
-  <div class="contact-row">
-    <div class="contact-info">
-      <h2>Contact Us</h2>
-      <p>You may contact us on:</p>
-      <p>
-        <i class="fa fa-globe"></i> agt@gmail.com<br>
-        <i class="fa fa-phone"></i> 23772 9229 9292<br>
-        <i class="fa fa-envelope"></i> 09999999999
-      </p>
-      <p style="font-style: italic; margin-top: 18px;">
-        or fill up the form to send concern
-      </p>
+        <div class="contact-section">
+          <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>We'd love to hear from you! Reach out to us through any of these channels:</p>
+            <p>
+              <i class="fa fa-envelope"></i> agt@gmail.com<br>
+              <i class="fa fa-phone"></i> 23772 9229 9292<br>
+              <i class="fa fa-globe"></i> 09999999999
+            </p>
+            <p style="margin-top: 2rem; font-style: italic; opacity: 0.9;">
+              Or fill out the form and we'll get back to you as soon as possible.
+            </p>
+          </div>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="Your email address">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required placeholder="What is this about?">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell us more about your concern..."></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <form class="contact-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      <label for="concern">Concern</label>
-      <textarea id="concern" name="concern" rows="5" required></textarea>
-      <button type="submit">Submit</button>
-    </form>
   </div>
-</div>
+
+  <script>
+    // Initialize dropdown states
+    const menuDropdown = document.getElementById('dropdownMenu');
+    const profileDropdown = document.getElementById('profileDropdown');
+    menuDropdown.style.display = 'none';
+    profileDropdown.style.display = 'none';
+
+    // Toggle dropdown menus
+    document.getElementById('menuBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isMenuVisible = menuDropdown.style.display === 'flex';
+      
+      // Close both dropdowns first
+      menuDropdown.style.display = 'none';
+      profileDropdown.style.display = 'none';
+      
+      // Toggle menu if it wasn't visible
+      if (!isMenuVisible) {
+        menuDropdown.style.display = 'flex';
+      }
+    });
+
+    document.getElementById('profileBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isProfileVisible = profileDropdown.style.display === 'flex';
+      
+      // Close both dropdowns first
+      menuDropdown.style.display = 'none';
+      profileDropdown.style.display = 'none';
+      
+      // Toggle profile if it wasn't visible
+      if (!isProfileVisible) {
+        profileDropdown.style.display = 'flex';
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    window.addEventListener('click', function() {
+      menuDropdown.style.display = 'none';
+      profileDropdown.style.display = 'none';
+    });
+
+    // Prevent clicks inside dropdowns from closing them
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
 </body>
 </html>

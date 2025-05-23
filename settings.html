@@ -8,314 +8,493 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-    .header {
-      background: linear-gradient(90deg, rgba(230, 203, 28, 0.76) 0%, rgba(45, 50, 194, 0.72) 47%, rgba(204, 35, 35, 0.79) 100%);
-      padding: 24px 0 12px 0;
-      text-align: left;
-      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
-    }
-    .header-title {
-      font-size: 2.7rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-left: 48px;
-      text-shadow: 1px 2px 8px #222, 0 1px 0 #fff2;
-    }
-    .header-title .goes { color: #3ec6ff; }
-    .header-title .tambayan { color: #ff2d2d; }
-    .header-desc {
-      font-size: 1.08rem;
-      margin-left: 52px;
-      margin-top: 7px;
-      color: #fff;
-      opacity: 0.92;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
-    }
-    .container {
-      display: flex;
-      height: calc(100vh - 90px);
-    }
-    .sidebar {
-      background: linear-gradient(180deg, #7a6f2c 80%, #ffe85c 100%);
-      width: 320px;
-      padding: 48px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      box-shadow: 2px 0 16px 0 rgba(0,0,0,0.12);
-    }
-    .sidebar h2 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      margin-left: 44px;
-      margin-bottom: 44px;
-      color: #191600;
-      letter-spacing: 1px;
-      text-shadow: 0 1px 0 #fff3;
-    }
-    .nav {
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      min-height: 100vh;
       width: 100%;
+      overflow-x: hidden;
     }
+
+    header {
+      background: #fff;
+      color: #222;
+      padding: 0;
+      min-height: 70px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      z-index: 10;
+      height: 70px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e53935;
+      letter-spacing: 1px;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 2rem;
+    }
+
+    .search-bar input[type="text"] {
+      width: 400px;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-size: 1rem;
+      background: #f5f5f5;
+      transition: border 0.2s;
+    }
+
+    .search-bar button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #555;
+      border-left: 1px solid #ccc;
+      transition: background 0.2s;
+    }
+
+    .search-bar button:hover {
+      background: #e3e3e3;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .header-icon-btn {
+      background: #f5f5f5;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #444;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .header-icon-btn:hover {
+      background: #e3e3e3;
+      color: #1e3a8a;
+    }
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eee;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      min-width: 200px;
+      z-index: 100;
+      flex-direction: column;
+      padding: 0.5rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .dropdown-menu.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      color: #222;
+      padding: 0.8rem 1.2rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a i {
+      font-size: 1.1rem;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
+    }
+
+    .dropdown-menu a:hover i {
+      color: #1e3a8a;
+    }
+
+    .container {
+      padding: 2rem;
+      margin-top: 90px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      min-height: calc(100vh - 180px);
+    }
+
+    .sidebar {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      height: fit-content;
+    }
+
+    .sidebar h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
-      padding: 18px 0 18px 44px;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #fff;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      color: #444;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s, border-left 0.18s;
-      border-left: 8px solid transparent;
-      margin-bottom: 7px;
+      transition: all 0.2s;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
 
-      position: relative;
-    }
-    .nav-item.selected {
-      background: linear-gradient(90deg, #ffe85c 80%, #fff2 100%);
-      color: #191600;
-      border-left: 8px solid #ffe85c;
-      font-weight: 700;
-      z-index: 2;
-      box-shadow: 2px 4px 16px 0 rgba(255,232,92,0.08);
-    }
     .nav-item i {
-      margin-right: 18px;
-      font-size: 1.5rem;
-      opacity: 0.92;
-      transition: color 0.18s;
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
     }
-    .nav-item.selected i {
-      color: #191600;
+
+    .nav-item:hover {
+      background: #f5f5f5;
+      color: #1e3a8a;
     }
-    .nav-item:hover:not(.selected) {
-      background: #fff2;
-      color: #ffe85c;
+
+    .nav-item.selected {
+      background: #1e3a8a;
+      color: white;
     }
-    .nav-item:hover:not(.selected) i {
-      color: #ffe85c;
-    }
+
     .main-content {
-      flex: 1;
-      background: #000;
-      padding: 60px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+
     .account-title {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: #ffe85c;
-      margin-bottom: 36px;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 12px #222;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 2rem;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 1rem;
     }
+
     .account-title i {
-      color: #ffe85c;
-      font-size: 2.2rem;
-      opacity: 0.92;
+      color: #1e3a8a;
+      font-size: 1.6rem;
     }
+
     .profile-row {
       display: flex;
       align-items: center;
-      gap: 44px;
-      margin-bottom: 34px;
-      justify-content: center;
-      background: linear-gradient(90deg, #ffe85c22 0%, #e7a6e722 100%);
-      border-radius: 18px;
-      padding: 32px 48px 32px 32px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+      gap: 2rem;
+      padding: 2rem;
+      background: #f5df54;
+      border-radius: 12px;
+      margin-bottom: 2rem;
     }
+
     .profile-img {
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle at 60% 40%, #ffe85c 60%, #e7a6e7 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0;
       overflow: hidden;
-      border: 4px solid #ffe85c;
-      box-shadow: 0 2px 16px #ffe85c33;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
+
     .profile-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 50%;
     }
+
     .profile-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
+      flex: 1;
     }
+
     .account-name {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 2px;
-      letter-spacing: 1px;
-      text-shadow: 0 1px 8px #222;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.5rem;
     }
+
     .account-email {
-      font-size: 1.13rem;
-      color: #ffe85c;
-      opacity: 0.92;
-      font-style: italic;
-      margin-bottom: 0;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px #222;
+      font-size: 1.1rem;
+      color: #666;
     }
+
     .account-actions {
-      display: flex;
-      gap: 22px;
-      margin-bottom: 36px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
     }
+
     .account-actions button {
-      background: linear-gradient(90deg, #ffe85c 60%, #fff2 100%);
-      color: #191600;
+      padding: 1rem;
       border: none;
+      background: #adcef0;
+      color: #1e3a8a;
       border-radius: 8px;
-      padding: 18px 95px;
-      font-size: 1.13rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-      margin-top: -5px;
-      box-shadow: 0 2px 12px #ffe85c33;
-      letter-spacing: 0.5px;
-    }
-    .account-actions button:hover {
-      background: #dcb01d;
-      color: #fff;
-      box-shadow: 0 4px 18px #3ec6ff44;
-    }
-    .back-btn {
-      position: absolute;
-      bottom: 40px;
-      right: 60px;
-      background: linear-gradient(90deg, #ff5858 0%, #ff2d2d 100%);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 48px 14px 32px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-      box-shadow: 0 4px 18px #ff2d2d44, 0 2px 10px #ff2d2d22;
-      letter-spacing: 0.5px;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
-      gap: 12px;
-      outline: none;
+      justify-content: center;
+      gap: 0.5rem;
     }
-    .back-btn i {
-      font-size: 1.3rem;
-      margin-right: 8px;
-      transition: transform 0.2s;
+
+    .account-actions button:hover {
+      background: #1e3a8a;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30,58,138,0.2);
     }
+
+    .back-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
     .back-btn:hover {
-      background: linear-gradient(90deg, #ff7b7b 0%, #c1272d 100%);
-      box-shadow: 0 6px 24px #c1272d66;
-      transform: translateY(-2px) scale(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    .back-btn:active {
-      transform: scale(0.98);
-    }
-    @media (max-width: 900px) {
+
+    @media (max-width: 768px) {
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
       .container {
-        flex-direction: column;
+        padding: 1rem;
+
       }
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 24px 0 0 0;
-        min-height: unset;
-      }
-      .sidebar h2 {
-        margin-left: 24px;
-        margin-bottom: 0;
-        font-size: 1.5rem;
-      }
-      .nav {
-        display: flex;
-        flex-direction: row;
-        width: auto;
-        margin-left: 24px;
-      }
-      .nav-item, .nav-item.selected {
-        border-radius: 16px;
-        padding: 12px 18px;
-        margin-bottom: 0;
-        font-size: 1rem;
-      }
-      .main-content {
-        padding: 30px 0 0 0;
-      }
+
       .profile-row {
         flex-direction: column;
-        gap: 18px;
-        padding: 24px 18px;
+        text-align: center;
+        padding: 1.5rem;
+  
       }
+
+      .profile-info {
+        text-align: center;
+      }
+
+      .account-actions {
+        grid-template-columns: 1fr;
+      }
+
       .back-btn {
-        right: 20px;
-        bottom: 20px;
-        padding: 12px 24px;
-        font-size: 1rem;
+        position: static;
+        margin-top: 2rem;
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-title">
-      <span style="color:#ffe85c;">ANYTHING</span> <span class="goes">GOES</span> <span class="tambayan">TAMBAYAN</span>
+  <header>
+    <div class="header-content">
+      <a href="dashboard.html" class="logo">
+        <img src="img/logo.png" alt="Prismatics Logo" style="height:48px; width:auto; display:block;" />
+        <span style="color:#ffe32d;"><strong>ANYTHING</strong></span>
+        <span style="color:#1e3a8a;"><strong>GOES</strong></span>
+        <span style="color:#e53935;"><strong>TAMBAYAN</strong></span>
+      </a>
+      <div class="search-bar">
+        <input type="text" placeholder="Search podcasts..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="header-icons">
+        <button class="header-icon-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu" style="right:0;">
+          <a href="category.html"><i class="fas fa-th-large"></i>Category</a>
+          <a href="discover.html"><i class="fas fa-compass"></i>Discover</a>
+          <a href="top10.html"><i class="fas fa-chart-line"></i>Top 10 Podcasts</a>
+          <a href="mostrecent.html"><i class="fas fa-clock"></i>Most Recent</a>
+        </div>
+        <a href="upload.html" class="header-icon-btn" title="Upload"><i class="fas fa-upload"></i></a>
+        <button class="header-icon-btn" id="profileBtn" title="Profile">
+          <img src="img/avatar.jpg" alt="Profile" class="profile-pic" />
+        </button>
+        <div class="dropdown-menu" id="profileDropdown" style="right:0;">
+          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+          <a href="manage.html"><i class="fas fa-tasks"></i>Manage Topics</a>
+          <a href="index.html"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+      </div>
     </div>
-    <div class="header-desc">
-      Your Hangout Spot for Chill Talks, Real Stories, and Anything Under the Sun!
-    </div>
-  </div>
+  </header>
+
   <div class="container">
-    <div class="sidebar">
-      <h2>Settings</h2>
-      <div class="nav">
-        <div class="nav-item selected"><i class="fa fa-user"></i> Account</div>
-       
-        <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
-        <div class="nav-item" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
-      </div>
-    </div>
-    <div class="main-content">
-      <div class="account-title"><i class="fa fa-user"></i> Account</div>
-      <div class="profile-row">
-        <div class="profile-img">
-          <img src="img/avatar.jpg" alt="Profile" />
-        </div>
-        <div class="profile-info">
-          <div class="account-name">MAEGAN ROSE SANTIAGO</div>
-          <div class="account-email">maegansantiago@gmail.com</div>
+    <div class="settings-grid">
+      <div class="sidebar">
+        <h2>Settings</h2>
+        <div class="nav">
+          <div class="nav-item selected"><i class="fa fa-user"></i> Account</div>
+          <div class="nav-item" onclick="window.location.href='aboutus.html'"><i class="fa fa-info-circle"></i> About Us</div>
+          <div class="nav-item" onclick="window.location.href='contactus.html'"><i class="fa fa-envelope"></i> Contact Us</div>
         </div>
       </div>
-      <div class="account-actions">
-        <button onclick="window.location.href='changeemail.html'"><i class="fa fa-envelope"></i> Change Email</button>
-         <button onclick="window.location.href='changepassowrd.html'"><i class="fa fa-key"></i> Change Password</button>
+      <div class="main-content">
+        <div class="account-title"><i class="fa fa-user"></i> Account Settings</div>
+        <div class="profile-row">
+          <div class="profile-img">
+            <img src="img/avatar.jpg" alt="Profile" />
+          </div>
+          <div class="profile-info">
+            <div class="account-name">MAEGAN ROSE SANTIAGO</div>
+            <div class="account-email">maegansantiago@gmail.com</div>
+          </div>
+        </div>
+        <div class="account-actions">
+          <button onclick="window.location.href='changeemail.html'"><i class="fa fa-envelope"></i> Change Email</button>
+          <button onclick="window.location.href='changepassowrd.html'"><i class="fa fa-key"></i> Change Password</button>
+        </div>
       </div>
-      <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back</button>
     </div>
+    <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fa fa-arrow-left"></i> Back to Dashboard</button>
   </div>
+
+  <script>
+    // JavaScript to toggle the main menu dropdown
+    document.getElementById('menuBtn').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('dropdownMenu');
+      if (dropdown.style.display === 'none' || !dropdown.style.display) {
+        dropdown.style.display = 'flex';
+        setTimeout(() => dropdown.classList.add('visible'), 10);
+        document.getElementById('profileDropdown').style.display = 'none';
+        document.getElementById('profileDropdown').classList.remove('visible');
+      } else {
+        dropdown.classList.remove('visible');
+        setTimeout(() => dropdown.style.display = 'none', 200);
+      }
+    });
+
+    // JavaScript to toggle the profile dropdown
+    document.getElementById('profileBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown.style.display === 'none' || !profileDropdown.style.display) {
+        profileDropdown.style.display = 'flex';
+        setTimeout(() => profileDropdown.classList.add('visible'), 10);
+        document.getElementById('dropdownMenu').style.display = 'none';
+        document.getElementById('dropdownMenu').classList.remove('visible');
+      } else {
+        profileDropdown.classList.remove('visible');
+        setTimeout(() => profileDropdown.style.display = 'none', 200);
+      }
+    });
+
+    // Close dropdowns if the user clicks outside
+    window.addEventListener('click', function(event) {
+      const dropdowns = [document.getElementById('dropdownMenu'), document.getElementById('profileDropdown')];
+      dropdowns.forEach(dropdown => {
+        if (!event.target.closest('.header-icon-btn')) {
+          dropdown.classList.remove('visible');
+          setTimeout(() => dropdown.style.display = 'none', 200);
+        }
+      });
+    });
+
+    // Prevent clicks inside dropdowns from closing them
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
 </body>
 </html>
